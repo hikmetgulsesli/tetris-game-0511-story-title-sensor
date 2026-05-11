@@ -18,7 +18,7 @@ export interface GameOverProps {
 
 export function GameOver({ actions }: GameOverProps) {
   const { state } = useAppContext();
-  const isNewBest = state.score > 0 && state.score >= state.highScore;
+  const isNewBest = state.score > 0 && state.score > state.highScore;
 
   const scoreDisplay = state.score.toLocaleString('en-US');
   const levelDisplay = state.level.toLocaleString('en-US');

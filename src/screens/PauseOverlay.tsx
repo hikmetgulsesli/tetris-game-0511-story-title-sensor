@@ -18,7 +18,7 @@ export interface PauseOverlayProps {
 
 export function PauseOverlay({ actions }: PauseOverlayProps) {
   const { state } = useAppContext();
-  const scoreDisplay = state.score.toLocaleString('en-US');
+  const scoreDisplay = state.score.toLocaleString('en-US', { minimumIntegerDigits: 6, useGrouping: true });
 
   return (
     <>
