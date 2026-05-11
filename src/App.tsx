@@ -6,7 +6,6 @@ import {
   GameOver,
   PauseOverlay,
   GameOptions,
-  NextPiecePreview,
 } from './screens';
 import { getHighScores } from './utils/storage';
 import './App.css';
@@ -41,7 +40,6 @@ export default function App() {
             'button-6-6': actions.rotateCW,
             'button-7-7': actions.hardDrop,
             'pause-esc-8': actions.pauseGame,
-            'next-piece-9': actions.goToNextPiece,
           }}
         />
       )}
@@ -58,7 +56,6 @@ export default function App() {
               'button-6-6': actions.rotateCW,
               'button-7-7': actions.hardDrop,
               'pause-esc-8': actions.pauseGame,
-              'next-piece-9': actions.goToNextPiece,
             }}
           />
           <div className="fixed inset-0 z-50">
@@ -85,7 +82,6 @@ export default function App() {
               'button-6-6': actions.rotateCW,
               'button-7-7': actions.hardDrop,
               'pause-esc-8': actions.pauseGame,
-              'next-piece-9': actions.goToNextPiece,
             }}
           />
           <div className="fixed inset-0 z-50 flex flex-col">
@@ -107,18 +103,11 @@ export default function App() {
             'button-1-1': actions.goToMenu,
             'button-2-2': actions.goToControls,
             'button-3-3': actions.goToOptions,
-            'save-configuration-4': actions.saveSettings,
+            'save-configuration-4': () => {
+              // Settings saved via local state in future story
+            },
             'revert-defaults-5': actions.resetGame,
             'clear-local-data-6': actions.clearData,
-          }}
-        />
-      )}
-
-      {phase === 'nextpiece' && (
-        <NextPiecePreview
-          actions={{
-            'button-1-1': actions.goToControls,
-            'button-2-2': actions.goToOptions,
           }}
         />
       )}

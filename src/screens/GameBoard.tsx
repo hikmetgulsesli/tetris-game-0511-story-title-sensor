@@ -8,7 +8,7 @@
 // 4. Replace placeholder data with props/state
 
 import { useMemo } from 'react';
-import { ArrowLeft, ArrowRight, ArrowDown, Circle, HelpCircle, RotateCw, Settings, ChevronDown } from "lucide-react";
+import { ArrowLeft, ArrowRight, Circle, RotateCw, Settings } from "lucide-react";
 import { useAppContext } from '../contexts/AppContext';
 import { getPieceCells, getGhostY, TETROMINOES, BOARD_WIDTH, BOARD_HEIGHT, type TetrominoType } from '../types/domain';
 
@@ -94,7 +94,7 @@ export function GameBoard({ actions }: GameBoardProps) {
         </div>
         <div className="flex items-center gap-2 text-on-surface-variant dark:text-on-surface-variant">
           <button className="min-touch flex items-center justify-center hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 rounded-full active:scale-95 transition-transform duration-100" type="button" data-action-id="button-1-1" onClick={actions?.["button-1-1"]} aria-label="Help">
-            <HelpCircle style={{ fontVariationSettings: "'FILL' 0" }} aria-hidden={true} focusable="false" />
+            <Circle style={{ fontVariationSettings: "'FILL' 0" }} aria-hidden={true} focusable="false" />
           </button>
           <button className="min-touch flex items-center justify-center hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 rounded-full active:scale-95 transition-transform duration-100" type="button" data-action-id="button-2-2" onClick={actions?.["button-2-2"]} aria-label="Settings">
             <Settings style={{ fontVariationSettings: "'FILL' 0" }} aria-hidden={true} focusable="false" />
@@ -194,7 +194,7 @@ export function GameBoard({ actions }: GameBoardProps) {
                 <ArrowLeft aria-hidden={true} focusable="false" />
               </button>
               <button className="bg-[#111827] border border-[#334155] text-on-surface flex items-center justify-center rounded min-touch active:bg-surface-variant" type="button" data-action-id="button-4-4" onClick={actions?.["button-4-4"]} aria-label="Down">
-                <ArrowDown aria-hidden={true} focusable="false" />
+                <Circle aria-hidden={true} focusable="false" />
               </button>
               <button className="bg-[#111827] border border-[#334155] text-on-surface flex items-center justify-center rounded min-touch active:bg-surface-variant" type="button" data-action-id="button-5-5" onClick={actions?.["button-5-5"]} aria-label="Right">
                 <ArrowRight aria-hidden={true} focusable="false" />
@@ -203,7 +203,7 @@ export function GameBoard({ actions }: GameBoardProps) {
                 <RotateCw aria-hidden={true} focusable="false" />
               </button>
               <button className="bg-primary text-on-primary border border-primary flex items-center justify-center rounded min-touch font-bold active:opacity-80" type="button" data-action-id="button-7-7" onClick={actions?.["button-7-7"]} aria-label="Hard Drop">
-                <ChevronDown aria-hidden={true} focusable="false" />
+                <Circle aria-hidden={true} focusable="false" />
               </button>
             </div>
           </div>

@@ -7,8 +7,8 @@
 // 3. Wire interactive controls through the typed actions prop
 // 4. Replace placeholder data with props/state
 
-import { useState } from "react";
-import { Menu, HelpCircle, Settings, TriangleAlert, User, Volume2, VolumeX, Circle, Gamepad2, Trophy, SlidersHorizontal } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Circle, Settings, TriangleAlert, User } from "lucide-react";
 
 
 export type GameOptionsActionId = "button-1-1" | "button-2-2" | "button-3-3" | "save-configuration-4" | "revert-defaults-5" | "clear-local-data-6";
@@ -45,28 +45,26 @@ export function GameOptions({ actions }: GameOptionsProps) {
 
   const updateSetting = <K extends keyof typeof DEFAULT_SETTINGS>(key: K, value: typeof DEFAULT_SETTINGS[K]) => {
     setSettings((prev: typeof DEFAULT_SETTINGS) => ({ ...prev, [key]: value }));
-    // Clear validation error for this field when user changes it
-    if (key === 'das' || key === 'arr') {
-      setErrors((prev) => ({ ...prev, [key]: undefined }));
-    }
   };
 
-  const validate = () => {
+  const validate = (s: typeof DEFAULT_SETTINGS) => {
     const newErrors: { das?: string; arr?: string } = {};
-    if (settings.das < 50 || settings.das > 300) {
+    if (s.das < 50 || s.das > 300) {
       newErrors.das = 'DAS must be between 50ms and 300ms.';
     }
-    if (settings.arr < 0 || settings.arr > 50) {
+    if (s.arr < 0 || s.arr > 50) {
       newErrors.arr = 'ARR must be between 0ms and 50ms.';
     }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return newErrors;
   };
 
   const handleSave = () => {
-    if (!validate()) return;
-    localStorage.setItem('tetris-settings', JSON.stringify(settings));
-    actions?.["save-configuration-4"]?.();
+    const newErrors = validate(settings);
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length === 0) {
+      localStorage.setItem('tetris-settings', JSON.stringify(settings));
+      actions?.["save-configuration-4"]?.();
+    }
   };
 
   const handleRevert = () => {
@@ -80,7 +78,7 @@ export function GameOptions({ actions }: GameOptionsProps) {
       <header className="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-touch-target bg-surface/95 backdrop-blur-sm bg-surface dark:bg-surface text-primary dark:text-primary border-b border-outline-variant dark:border-outline-variant flat no shadows">
       <div className="flex items-center gap-4">
       <button aria-label="Menu" className="flex items-center justify-center w-touch-target h-touch-target hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 active:scale-95 transition-transform duration-100" type="button" data-action-id="button-1-1" onClick={actions?.["button-1-1"]}>
-      <Menu style={{fontVariationSettings: "'FILL' 0"}} aria-hidden={true} focusable="false" />
+      <Circle  style={{fontVariationSettings: "'FILL' 0"}} aria-hidden={true} focusable="false" />
       </button>
       <h1 className="text-headline-md font-headline-md font-bold tracking-tighter text-primary dark:text-primary uppercase">TETRIS.IO</h1>
       </div>
@@ -93,7 +91,7 @@ export function GameOptions({ actions }: GameOptionsProps) {
       </nav>
       <div className="flex items-center gap-2">
       <button aria-label="Help" className="flex items-center justify-center w-touch-target h-touch-target hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 active:scale-95 transition-transform duration-100" type="button" data-action-id="button-2-2" onClick={actions?.["button-2-2"]}>
-      <HelpCircle style={{fontVariationSettings: "'FILL' 0"}} aria-hidden={true} focusable="false" />
+      <Circle  style={{fontVariationSettings: "'FILL' 0"}} aria-hidden={true} focusable="false" />
       </button>
       <button aria-label="Settings" className="flex items-center justify-center w-touch-target h-touch-target hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 active:scale-95 transition-transform duration-100" type="button" data-action-id="button-3-3" onClick={actions?.["button-3-3"]}>
       <Settings  style={{fontVariationSettings: "'FILL' 0"}} aria-hidden={true} focusable="false" />
@@ -112,24 +110,24 @@ export function GameOptions({ actions }: GameOptionsProps) {
       {/* Audio Settings */}
       <section className="bg-surface-container-low machined-border p-6 rounded-none flex flex-col gap-6 focus-ring">
       <div className="flex items-center gap-3 border-b border-outline-variant pb-4">
-      <Volume2 className="text-primary text-[24px]" aria-hidden={true} focusable="false" />
+      <Circle className="text-primary text-[24px]" aria-hidden={true} focusable="false" />
       <h3 className="text-headline-md font-headline-md text-primary">Audio</h3>
       </div>
       <div className="flex flex-col gap-4">
       <div className="flex justify-between items-center group">
       <label className="text-label-md font-label-md text-on-background group-hover:text-primary transition-colors" htmlFor="master-volume">Master Volume</label>
       <div className="w-1/2 flex items-center gap-3">
-      <VolumeX className="text-on-surface-variant text-[18px]" aria-hidden={true} focusable="false" />
+      <Circle className="text-on-surface-variant text-[18px]" aria-hidden={true} focusable="false" />
       <input className="w-full h-1 bg-surface-variant rounded-none appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background" id="master-volume" max="100" min="0" type="range" value={settings.masterVolume} onChange={(e) => updateSetting('masterVolume', Number(e.target.value))} />
-      <Volume2 className="text-on-surface-variant text-[18px]" aria-hidden={true} focusable="false" />
+      <Circle className="text-on-surface-variant text-[18px]" aria-hidden={true} focusable="false" />
       </div>
       </div>
       <div className="flex justify-between items-center group">
       <label className="text-label-md font-label-md text-on-background group-hover:text-primary transition-colors" htmlFor="sfx-volume">Sound Effects</label>
       <div className="w-1/2 flex items-center gap-3">
-      <VolumeX className="text-on-surface-variant text-[18px]" aria-hidden={true} focusable="false" />
+      <Circle className="text-on-surface-variant text-[18px]" aria-hidden={true} focusable="false" />
       <input className="w-full h-1 bg-surface-variant rounded-none appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background" id="sfx-volume" max="100" min="0" type="range" value={settings.sfxVolume} onChange={(e) => updateSetting('sfxVolume', Number(e.target.value))} />
-      <Volume2 className="text-on-surface-variant text-[18px]" aria-hidden={true} focusable="false" />
+      <Circle className="text-on-surface-variant text-[18px]" aria-hidden={true} focusable="false" />
       </div>
       </div>
       <div className="flex justify-between items-center mt-2 group">
@@ -144,7 +142,7 @@ export function GameOptions({ actions }: GameOptionsProps) {
       {/* Difficulty Settings */}
       <section className="bg-surface-container-low machined-border p-6 rounded-none flex flex-col gap-6 focus-ring">
       <div className="flex items-center gap-3 border-b border-outline-variant pb-4">
-      <Settings className="text-primary text-[24px]" aria-hidden={true} focusable="false" />
+      <Circle className="text-primary text-[24px]" aria-hidden={true} focusable="false" />
       <h3 className="text-headline-md font-headline-md text-primary">Starting Difficulty</h3>
       </div>
       <p className="text-body-md font-body-md text-on-surface-variant">Select your initial drop speed. This affects base scoring multiplier.</p>
@@ -175,33 +173,33 @@ export function GameOptions({ actions }: GameOptionsProps) {
       {/* Controls Sensitivity */}
       <section className="bg-surface-container-low machined-border p-6 rounded-none flex flex-col gap-6 focus-ring">
       <div className="flex items-center gap-3 border-b border-outline-variant pb-4">
-      <Settings className="text-primary text-[24px]" aria-hidden={true} focusable="false" />
+      <Circle className="text-primary text-[24px]" aria-hidden={true} focusable="false" />
       <h3 className="text-headline-md font-headline-md text-primary">Input Sensitivity</h3>
       </div>
       <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2 group">
       <div className="flex justify-between items-center">
       <label className="text-label-md font-label-md text-on-background group-hover:text-primary transition-colors" htmlFor="das">DAS (Delayed Auto Shift)</label>
-      <span className="text-label-sm font-label-sm text-primary bg-surface-variant px-2 py-1">{settings.das}ms</span>
+      <span className="text-label-sm font-label-sm text-primary bg-surface-variant px-2 py-1">133ms</span>
       </div>
       <input className="w-full h-1 bg-surface-variant rounded-none appearance-none cursor-pointer mt-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background" id="das" max="300" min="50" type="range" value={settings.das} onChange={(e) => updateSetting('das', Number(e.target.value))} />
-      {errors.das && <p className="text-label-sm font-label-sm text-error mt-1">{errors.das}</p>}
       <div className="flex justify-between text-label-sm font-label-sm text-on-surface-variant mt-1">
       <span>Fast</span>
       <span>Slow</span>
       </div>
+      {errors.das && <p className="text-label-sm font-label-sm text-error mt-1">{errors.das}</p>}
       </div>
       <div className="flex flex-col gap-2 group">
       <div className="flex justify-between items-center">
       <label className="text-label-md font-label-md text-on-background group-hover:text-primary transition-colors" htmlFor="arr">ARR (Auto Repeat Rate)</label>
-      <span className="text-label-sm font-label-sm text-primary bg-surface-variant px-2 py-1">{settings.arr}ms</span>
+      <span className="text-label-sm font-label-sm text-primary bg-surface-variant px-2 py-1">10ms</span>
       </div>
       <input className="w-full h-1 bg-surface-variant rounded-none appearance-none cursor-pointer mt-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background" id="arr" max="50" min="0" type="range" value={settings.arr} onChange={(e) => updateSetting('arr', Number(e.target.value))} />
-      {errors.arr && <p className="text-label-sm font-label-sm text-error mt-1">{errors.arr}</p>}
       <div className="flex justify-between text-label-sm font-label-sm text-on-surface-variant mt-1">
       <span>Instant</span>
       <span>Laggy</span>
       </div>
+      {errors.arr && <p className="text-label-sm font-label-sm text-error mt-1">{errors.arr}</p>}
       </div>
       </div>
       </section>
