@@ -151,6 +151,9 @@ describe('useAppState', () => {
     expect(typeof (window as any).render_game_to_text).toBe('function');
     expect(typeof (window as any).advanceTime).toBe('function');
     expect((window as any).game).toBeDefined();
+    expect((window as any).app).toBeDefined();
+    expect(typeof (window as any).app.screen).toBe('string');
+    expect(typeof (window as any).app.score).toBe('number');
   });
 
   it('render_game_to_text returns valid JSON', () => {
