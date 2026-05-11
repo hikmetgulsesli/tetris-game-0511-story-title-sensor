@@ -105,7 +105,7 @@ export function GameBoard({ actions }: GameBoardProps) {
   return (
     <>
       {/* TopAppBar (Hidden md to show on mobile, or adjusted for desktop) */}
-      <header className="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-touch-target bg-surface/95 backdrop-blur-sm border-b border-outline-variant dark:border-outline-variant flat no shadows md:hidden">
+      <header className="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-touch-target bg-surface/95 backdrop-blur-sm border-b border-outline-variant dark:border-outline-variant md:hidden">
         <div className="flex items-center gap-3">
           <HelpCircle className="text-primary dark:text-primary" aria-hidden={true} focusable="false" />
           <span className="text-headline-md font-headline-md font-bold tracking-tighter text-primary dark:text-primary uppercase">TETRIS.IO</span>
@@ -259,7 +259,7 @@ export function GameBoard({ actions }: GameBoardProps) {
         </div>
       </main>
       {/* BottomNavBar (Mobile Only) */}
-      <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-[56px] bg-surface dark:bg-surface border-t border-outline-variant dark:border-outline-variant flat no shadows md:hidden">
+      <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-[56px] bg-surface dark:bg-surface border-t border-outline-variant dark:border-outline-variant md:hidden">
         <a className="flex flex-col items-center justify-center text-on-primary bg-primary rounded-none w-full h-full border-t-2 border-primary active:opacity-80 transition-opacity duration-100 group" href="#" onClick={(e) => handleNav(e, 'menu')}>
           <Gamepad2 style={{ fontVariationSettings: "'FILL' 1" }} className="text-[24px] mb-1 group-hover:bg-surface-container-high transition-colors duration-200" aria-hidden={true} focusable="false" />
           <span className="text-label-sm font-label-sm">Battle</span>

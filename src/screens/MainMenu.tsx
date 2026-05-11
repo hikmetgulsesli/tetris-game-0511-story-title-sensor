@@ -104,7 +104,7 @@ export function MainMenu({ actions }: MainMenuProps) {
             <div className="absolute inset-0 border border-primary/20 pointer-events-none group-hover:border-primary/50 transition-colors"></div>
             <div className="absolute inset-y-0 left-0 w-1 bg-surface-container-highest group-hover:w-2 transition-colors"></div>
             <span className="relative z-10 flex items-center gap-2">
-              <Play className="filled text-[18px]" aria-hidden={true} focusable="false" />
+              <Play className="text-[18px]" aria-hidden={true} focusable="false" />
               Resume Game
             </span>
           </button>

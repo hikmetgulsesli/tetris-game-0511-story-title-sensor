@@ -109,7 +109,7 @@ export function GameOptions({ actions }: GameOptionsProps) {
   return (
     <>
       {/* TopAppBar */}
-      <header className="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-touch-target bg-surface/95 backdrop-blur-sm bg-surface dark:bg-surface text-primary dark:text-primary border-b border-outline-variant dark:border-outline-variant flat no shadows">
+      <header className="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-touch-target bg-surface/95 backdrop-blur-sm text-primary dark:text-primary border-b border-outline-variant dark:border-outline-variant">
         <div className="flex items-center gap-4">
           <button aria-label="Menu" className="flex items-center justify-center w-touch-target h-touch-target hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 active:scale-95 transition-transform duration-100" type="button" data-action-id="button-1-1" onClick={actions?.["button-1-1"]}>
             <LayoutGrid aria-hidden={true} focusable="false" />
@@ -300,7 +300,7 @@ export function GameOptions({ actions }: GameOptionsProps) {
           <div className="bg-surface-container-low machined-border p-6 rounded-none flex flex-col gap-4 sticky top-[80px]">
             <h4 className="text-headline-md font-headline-md text-primary border-b border-outline-variant pb-2">Actions</h4>
             <p className="text-body-md font-body-md text-on-surface-variant mb-2">Changes are applied immediately, but must be saved to persist across sessions.</p>
-            <button className="min-h-[44px] bg-primary text-on-primary text-label-md font-label-md uppercase tracking-widest hover:bg-surface-tint transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background active:scale-[0.98]" type="button" data-action-id="save-configuration-4" onClick={handleSave}>
+            <button className="min-h-[44px] bg-primary text-on-primary text-label-md font-label-md uppercase tracking-widest hover:bg-primary-container transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background active:scale-[0.98]" type="button" data-action-id="save-configuration-4" onClick={handleSave}>
               Save Configuration
             </button>
             <button className="min-h-[44px] bg-surface text-on-background border border-outline-variant hover:bg-surface-variant hover:text-primary transition-colors text-label-md font-label-md uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background active:scale-[0.98]" type="button" data-action-id="revert-defaults-5" onClick={handleRevert}>
@@ -323,7 +323,7 @@ export function GameOptions({ actions }: GameOptionsProps) {
         </div>
       </main>
       {/* BottomNavBar (Mobile Only) */}
-      <nav className="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-[56px] bg-surface dark:bg-surface border-t border-outline-variant dark:border-outline-variant flat no shadows">
+      <nav className="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-[56px] bg-surface dark:bg-surface border-t border-outline-variant dark:border-outline-variant">
         <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100" href="#" onClick={(e) => handleNav(e, 'menu')}>
           <LayoutGrid aria-hidden={true} focusable="false" />
           <span className="text-label-sm font-label-sm mt-1">Battle</span>
