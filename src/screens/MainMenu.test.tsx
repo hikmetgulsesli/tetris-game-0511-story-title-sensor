@@ -1,10 +1,19 @@
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { MainMenu } from './MainMenu';
+import { AppProvider } from '../contexts/AppContext';
 
 describe('MainMenu', () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   it('renders title and menu buttons', () => {
-    render(<MainMenu />);
+    render(
+      <AppProvider>
+        <MainMenu />
+      </AppProvider>
+    );
     expect(screen.getByText('TETRIS')).toBeInTheDocument();
     expect(screen.getByText('Resume Game')).toBeInTheDocument();
     expect(screen.getByText('New Game')).toBeInTheDocument();
@@ -21,7 +30,11 @@ describe('MainMenu', () => {
       'button-2-2': vi.fn(),
     };
 
-    render(<MainMenu actions={mockActions} />);
+    render(
+      <AppProvider>
+        <MainMenu actions={mockActions} />
+      </AppProvider>
+    );
 
     fireEvent.click(screen.getByText('Resume Game'));
     expect(mockActions['resume-game-3']).toHaveBeenCalledTimes(1);
