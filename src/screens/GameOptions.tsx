@@ -19,6 +19,7 @@ import {
   VolumeX,
   Zap,
 } from "lucide-react";
+import { useAppContext } from '../contexts/AppContext';
 
 export type GameOptionsActionId = "button-1-1" | "button-2-2" | "button-3-3" | "save-configuration-4" | "revert-defaults-5" | "clear-local-data-6";
 
@@ -38,6 +39,26 @@ const DEFAULTS = {
 const STORAGE_KEY = 'tetris-settings';
 
 export function GameOptions({ actions }: GameOptionsProps) {
+  const { actions: appActions } = useAppContext();
+
+  const handleNav = (e: React.MouseEvent, target: 'menu' | 'ranks' | 'controls' | 'options') => {
+    e.preventDefault();
+    switch (target) {
+      case 'menu':
+        appActions.goToMenu();
+        break;
+      case 'ranks':
+        appActions.goToRanks();
+        break;
+      case 'controls':
+        appActions.goToControls();
+        break;
+      case 'options':
+        appActions.goToOptions();
+        break;
+    }
+  };
+
   const [masterVolume, setMasterVolume] = useState(DEFAULTS.masterVolume);
   const [sfxVolume, setSfxVolume] = useState(DEFAULTS.sfxVolume);
   const [muteAll, setMuteAll] = useState(DEFAULTS.muteAll);
@@ -97,10 +118,10 @@ export function GameOptions({ actions }: GameOptionsProps) {
         </div>
         {/* Desktop Nav */}
         <nav className="hidden md:flex h-full">
-          <a className="flex items-center px-4 text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors duration-200" href="#">Battle</a>
-          <a className="flex items-center px-4 text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors duration-200" href="#">Ranks</a>
-          <a className="flex items-center px-4 text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors duration-200" href="#">Controls</a>
-          <a className="flex items-center px-4 text-primary border-b-2 border-primary pb-1 hover:text-primary hover:bg-surface-container-highest transition-colors duration-200" href="#">Account</a>
+          <a className="flex items-center px-4 text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors duration-200" href="#" onClick={(e) => handleNav(e, 'menu')}>Battle</a>
+          <a className="flex items-center px-4 text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors duration-200" href="#" onClick={(e) => handleNav(e, 'ranks')}>Ranks</a>
+          <a className="flex items-center px-4 text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors duration-200" href="#" onClick={(e) => handleNav(e, 'controls')}>Controls</a>
+          <a className="flex items-center px-4 text-primary border-b-2 border-primary pb-1 hover:text-primary hover:bg-surface-container-highest transition-colors duration-200" href="#" onClick={(e) => handleNav(e, 'options')}>Account</a>
         </nav>
         <div className="flex items-center gap-2">
           <button aria-label="Help" className="flex items-center justify-center w-touch-target h-touch-target hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 active:scale-95 transition-transform duration-100" type="button" data-action-id="button-2-2" onClick={actions?.["button-2-2"]}>
@@ -303,19 +324,19 @@ export function GameOptions({ actions }: GameOptionsProps) {
       </main>
       {/* BottomNavBar (Mobile Only) */}
       <nav className="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-[56px] bg-surface dark:bg-surface border-t border-outline-variant dark:border-outline-variant flat no shadows">
-        <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100" href="#">
+        <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100" href="#" onClick={(e) => handleNav(e, 'menu')}>
           <LayoutGrid aria-hidden={true} focusable="false" />
           <span className="text-label-sm font-label-sm mt-1">Battle</span>
         </a>
-        <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100" href="#">
+        <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100" href="#" onClick={(e) => handleNav(e, 'ranks')}>
           <User aria-hidden={true} focusable="false" />
           <span className="text-label-sm font-label-sm mt-1">Ranks</span>
         </a>
-        <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100" href="#">
+        <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100" href="#" onClick={(e) => handleNav(e, 'controls')}>
           <Keyboard aria-hidden={true} focusable="false" />
           <span className="text-label-sm font-label-sm mt-1">Controls</span>
         </a>
-        <a className="flex flex-col items-center justify-center text-on-primary bg-primary rounded-none w-full h-full border-t-2 border-primary hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100" href="#">
+        <a className="flex flex-col items-center justify-center text-on-primary bg-primary rounded-none w-full h-full border-t-2 border-primary hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100" href="#" onClick={(e) => handleNav(e, 'options')}>
           <User aria-hidden={true} focusable="false" />
           <span className="text-label-sm font-label-sm mt-1">Account</span>
         </a>

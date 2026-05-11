@@ -58,7 +58,9 @@ export function ControlsHelp(_props: ControlsHelpProps) {
       {/* TopAppBar */}
       <header className="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-touch-target bg-surface/95 backdrop-blur-sm border-b border-outline-variant dark:border-outline-variant">
         <div className="flex items-center gap-gutter">
-          <LayoutGrid className="text-primary dark:text-primary active:scale-95 transition-transform duration-100 cursor-pointer" aria-hidden={true} focusable="false" />
+          <button aria-label="Menu" className="flex items-center justify-center w-touch-target h-touch-target hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 active:scale-95 transition-transform duration-100" type="button" onClick={() => actions.goToMenu()}>
+            <LayoutGrid className="text-primary dark:text-primary" aria-hidden={true} focusable="false" />
+          </button>
           <h1 className="text-headline-md font-headline-md font-bold tracking-tighter text-primary dark:text-primary uppercase">TETRIS.IO</h1>
         </div>
         {/* Desktop Nav */}
@@ -69,8 +71,12 @@ export function ControlsHelp(_props: ControlsHelpProps) {
           <a className="text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 h-full flex items-center px-4 font-label-md text-label-md" href="#" onClick={(e) => handleNav(e, 'options')}>Account</a>
         </nav>
         <div className="flex items-center gap-4">
-          <HelpCircle className="text-primary dark:text-primary active:scale-95 transition-transform duration-100 hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 cursor-pointer" aria-hidden={true} focusable="false" />
-          <Settings className="text-primary dark:text-primary active:scale-95 transition-transform duration-100 hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 cursor-pointer" aria-hidden={true} focusable="false" />
+          <button aria-label="Help" className="flex items-center justify-center w-touch-target h-touch-target hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 active:scale-95 transition-transform duration-100" type="button" onClick={() => actions.goToControls()}>
+            <HelpCircle className="text-primary dark:text-primary" aria-hidden={true} focusable="false" />
+          </button>
+          <button aria-label="Settings" className="flex items-center justify-center w-touch-target h-touch-target hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 active:scale-95 transition-transform duration-100" type="button" onClick={() => actions.goToOptions()}>
+            <Settings className="text-primary dark:text-primary" aria-hidden={true} focusable="false" />
+          </button>
         </div>
       </header>
       {/* Main Content */}
@@ -126,9 +132,8 @@ export function ControlsHelp(_props: ControlsHelpProps) {
                 <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: "radial-gradient(#334155 1px, transparent 1px)", backgroundSize: "16px 16px" }}></div>
                 {/* D-Pad Left */}
                 <div className="absolute bottom-4 left-4 grid grid-cols-3 grid-rows-3 gap-1 opacity-70">
-                  <div className="col-start-2 w-10 h-10 bg-surface-container-highest border border-outline-variant rounded-sm flex items-center justify-center text-primary"><RotateCw aria-hidden={true} focusable="false" /></div>
                   <div className="row-start-2 w-10 h-10 bg-surface-container-highest border border-outline-variant rounded-sm flex items-center justify-center text-primary"><ArrowLeft aria-hidden={true} focusable="false" /></div>
-                  <div className="row-start-2 col-start-2 w-10 h-10 bg-surface border border-outline-variant rounded-sm"></div>
+                  <div className="row-start-2 col-start-2 w-10 h-10 bg-surface-container-highest border border-outline-variant rounded-sm flex items-center justify-center text-primary"><RotateCw aria-hidden={true} focusable="false" /></div>
                   <div className="row-start-2 col-start-3 w-10 h-10 bg-surface-container-highest border border-outline-variant rounded-sm flex items-center justify-center text-primary"><ArrowRight aria-hidden={true} focusable="false" /></div>
                   <div className="row-start-3 col-start-2 w-10 h-10 bg-surface-container-highest border border-outline-variant rounded-sm flex items-center justify-center text-primary"><ArrowDown aria-hidden={true} focusable="false" /></div>
                 </div>
