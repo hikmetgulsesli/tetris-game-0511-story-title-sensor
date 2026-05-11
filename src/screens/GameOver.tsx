@@ -10,6 +10,7 @@
 import { Circle, Menu } from "lucide-react";
 import { useAppContext } from '../contexts/AppContext';
 
+
 export type GameOverActionId = "play-again-1" | "return-to-menu-2";
 
 export interface GameOverProps {
@@ -77,17 +78,8 @@ export function GameOver({ actions }: GameOverProps) {
       </div>
       {/* Leaderboard Tease (Optional contextual element to encourage replay) */}
       <div className="mt-8 text-center text-label-sm font-label-sm text-on-surface-variant flex items-center justify-center gap-2">
-      {isNewBest ? (
-        <>
-          <Circle  data-icon="emoji_events" className="text-[16px]" aria-hidden={true} focusable="false" />
-          New Personal Best! Top 5% globally.
-        </>
-      ) : (
-        <>
-          <Circle  data-icon="emoji_events" className="text-[16px]" aria-hidden={true} focusable="false" />
-          High Score: {highScoreDisplay}
-        </>
-      )}
+      <Circle  data-icon="emoji_events" className="text-[16px]" aria-hidden={true} focusable="false" />
+                      {isNewBest ? 'New Personal Best! Top 5% globally.' : `High Score: ${highScoreDisplay}`}
                   </div>
       </div>
       </main>

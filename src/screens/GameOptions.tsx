@@ -7,8 +7,9 @@
 // 3. Wire interactive controls through the typed actions prop
 // 4. Replace placeholder data with props/state
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { Circle, Settings, TriangleAlert, User } from "lucide-react";
+
 
 export type GameOptionsActionId = "button-1-1" | "button-2-2" | "button-3-3" | "save-configuration-4" | "revert-defaults-5" | "clear-local-data-6";
 
@@ -16,54 +17,43 @@ export interface GameOptionsProps {
   actions?: Partial<Record<GameOptionsActionId, () => void>>;
 }
 
-const DEFAULTS = {
+const DEFAULT_SETTINGS = {
   masterVolume: 80,
   sfxVolume: 100,
   muteAll: false,
-  difficulty: 'normal',
+  difficulty: 'normal' as 'easy' | 'normal' | 'hard',
   das: 133,
   arr: 10,
 };
 
-export function GameOptions({ actions }: GameOptionsProps) {
-  const [masterVolume, setMasterVolume] = useState(DEFAULTS.masterVolume);
-  const [sfxVolume, setSfxVolume] = useState(DEFAULTS.sfxVolume);
-  const [muteAll, setMuteAll] = useState(DEFAULTS.muteAll);
-  const [difficulty, setDifficulty] = useState(DEFAULTS.difficulty);
-  const [das, setDas] = useState(DEFAULTS.das);
-  const [arr, setArr] = useState(DEFAULTS.arr);
-
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem('tetris-settings');
-      if (raw) {
-        const saved = JSON.parse(raw);
-        if (typeof saved.masterVolume === 'number') setMasterVolume(saved.masterVolume);
-        if (typeof saved.sfxVolume === 'number') setSfxVolume(saved.sfxVolume);
-        if (typeof saved.muteAll === 'boolean') setMuteAll(saved.muteAll);
-        if (typeof saved.difficulty === 'string') setDifficulty(saved.difficulty);
-        if (typeof saved.das === 'number') setDas(saved.das);
-        if (typeof saved.arr === 'number') setArr(saved.arr);
-      }
-    } catch {
-      // ignore parse errors
+function loadSettings() {
+  try {
+    const raw = localStorage.getItem('tetris-settings');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      return { ...DEFAULT_SETTINGS, ...parsed };
     }
-  }, []);
+  } catch {
+    // ignore parse errors
+  }
+  return { ...DEFAULT_SETTINGS };
+}
+
+export function GameOptions({ actions }: GameOptionsProps) {
+  const [settings, setSettings] = useState(() => loadSettings());
+
+  const updateSetting = <K extends keyof typeof DEFAULT_SETTINGS>(key: K, value: typeof DEFAULT_SETTINGS[K]) => {
+    setSettings((prev: typeof DEFAULT_SETTINGS) => ({ ...prev, [key]: value }));
+  };
 
   const handleSave = () => {
-    const settings = { masterVolume, sfxVolume, muteAll, difficulty, das, arr };
     localStorage.setItem('tetris-settings', JSON.stringify(settings));
-    actions?.['save-configuration-4']?.();
+    actions?.["save-configuration-4"]?.();
   };
 
   const handleRevert = () => {
-    setMasterVolume(DEFAULTS.masterVolume);
-    setSfxVolume(DEFAULTS.sfxVolume);
-    setMuteAll(DEFAULTS.muteAll);
-    setDifficulty(DEFAULTS.difficulty);
-    setDas(DEFAULTS.das);
-    setArr(DEFAULTS.arr);
-    actions?.['revert-defaults-5']?.();
+    setSettings({ ...DEFAULT_SETTINGS });
+    actions?.["revert-defaults-5"]?.();
   };
 
   return (
@@ -112,7 +102,7 @@ export function GameOptions({ actions }: GameOptionsProps) {
       <label className="text-label-md font-label-md text-on-background group-hover:text-primary transition-colors" htmlFor="master-volume">Master Volume</label>
       <div className="w-1/2 flex items-center gap-3">
       <Circle className="text-on-surface-variant text-[18px]" aria-hidden={true} focusable="false" />
-      <input className="w-full h-1 bg-surface-variant rounded-none appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background" id="master-volume" max="100" min="0" type="range" value={masterVolume} onChange={(e) => setMasterVolume(Number(e.target.value))} />
+      <input className="w-full h-1 bg-surface-variant rounded-none appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background" id="master-volume" max="100" min="0" type="range" value={settings.masterVolume} onChange={(e) => updateSetting('masterVolume', Number(e.target.value))} />
       <Circle className="text-on-surface-variant text-[18px]" aria-hidden={true} focusable="false" />
       </div>
       </div>
@@ -120,15 +110,15 @@ export function GameOptions({ actions }: GameOptionsProps) {
       <label className="text-label-md font-label-md text-on-background group-hover:text-primary transition-colors" htmlFor="sfx-volume">Sound Effects</label>
       <div className="w-1/2 flex items-center gap-3">
       <Circle className="text-on-surface-variant text-[18px]" aria-hidden={true} focusable="false" />
-      <input className="w-full h-1 bg-surface-variant rounded-none appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background" id="sfx-volume" max="100" min="0" type="range" value={sfxVolume} onChange={(e) => setSfxVolume(Number(e.target.value))} />
+      <input className="w-full h-1 bg-surface-variant rounded-none appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background" id="sfx-volume" max="100" min="0" type="range" value={settings.sfxVolume} onChange={(e) => updateSetting('sfxVolume', Number(e.target.value))} />
       <Circle className="text-on-surface-variant text-[18px]" aria-hidden={true} focusable="false" />
       </div>
       </div>
       <div className="flex justify-between items-center mt-2 group">
       <span className="text-label-md font-label-md text-on-background group-hover:text-primary transition-colors">Mute All</span>
       <label className="relative inline-flex items-center cursor-pointer min-h-[44px]">
-      <input className="sr-only peer" type="checkbox" checked={muteAll} onChange={(e) => setMuteAll(e.target.checked)} />
-      <div className="w-11 h-6 bg-surface-variant peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary peer-focus:ring-offset-2 peer-focus:ring-offset-background rounded-none peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[10px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-none after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+      <input className="sr-only peer" type="checkbox" checked={settings.muteAll} onChange={(e) => updateSetting('muteAll', e.target.checked)} />
+      <div className="w-11 h-6 bg-surface-variant peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary peer-focus:ring-offset-2 peer-focus:ring-offset-background rounded-none peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[10px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-none after:h-5 after:w-5 after:transition-transform after:transition-opacity peer-checked:bg-primary"></div>
       </label>
       </div>
       </div>
@@ -142,21 +132,21 @@ export function GameOptions({ actions }: GameOptionsProps) {
       <p className="text-body-md font-body-md text-on-surface-variant">Select your initial drop speed. This affects base scoring multiplier.</p>
       <div className="grid grid-cols-3 gap-4">
       <label className="relative cursor-pointer min-h-[44px] block focus-ring">
-      <input className="peer sr-only" name="difficulty" type="radio" value="easy" checked={difficulty === 'easy'} onChange={() => setDifficulty('easy')} />
+      <input className="peer sr-only" name="difficulty" type="radio" value="easy" checked={settings.difficulty === 'easy'} onChange={(e) => updateSetting('difficulty', e.target.value as typeof DEFAULT_SETTINGS.difficulty)} />
       <div className="h-full flex flex-col items-center justify-center p-4 bg-surface machined-border peer-checked:bg-surface-variant peer-checked:border-primary peer-checked:text-primary text-on-surface-variant hover:bg-surface-container-high transition-colors">
       <span className="text-label-md font-label-md uppercase tracking-wider mb-2">Easy</span>
       <span className="text-label-sm font-label-sm text-center opacity-70">0.5x Multiplier</span>
       </div>
       </label>
       <label className="relative cursor-pointer min-h-[44px] block focus-ring">
-      <input className="peer sr-only" name="difficulty" type="radio" value="normal" checked={difficulty === 'normal'} onChange={() => setDifficulty('normal')} />
+      <input className="peer sr-only" name="difficulty" type="radio" value="normal" checked={settings.difficulty === 'normal'} onChange={(e) => updateSetting('difficulty', e.target.value as typeof DEFAULT_SETTINGS.difficulty)} />
       <div className="h-full flex flex-col items-center justify-center p-4 bg-surface machined-border peer-checked:bg-surface-variant peer-checked:border-primary peer-checked:text-primary text-on-surface-variant hover:bg-surface-container-high transition-colors">
       <span className="text-label-md font-label-md uppercase tracking-wider mb-2">Normal</span>
       <span className="text-label-sm font-label-sm text-center opacity-70">1.0x Multiplier</span>
       </div>
       </label>
       <label className="relative cursor-pointer min-h-[44px] block focus-ring">
-      <input className="peer sr-only" name="difficulty" type="radio" value="hard" checked={difficulty === 'hard'} onChange={() => setDifficulty('hard')} />
+      <input className="peer sr-only" name="difficulty" type="radio" value="hard" checked={settings.difficulty === 'hard'} onChange={(e) => updateSetting('difficulty', e.target.value as typeof DEFAULT_SETTINGS.difficulty)} />
       <div className="h-full flex flex-col items-center justify-center p-4 bg-surface machined-border peer-checked:bg-surface-variant peer-checked:border-primary peer-checked:text-primary text-on-surface-variant hover:bg-surface-container-high transition-colors">
       <span className="text-label-md font-label-md uppercase tracking-wider mb-2 text-error">Hard</span>
       <span className="text-label-sm font-label-sm text-center opacity-70">2.0x Multiplier</span>
@@ -174,9 +164,9 @@ export function GameOptions({ actions }: GameOptionsProps) {
       <div className="flex flex-col gap-2 group">
       <div className="flex justify-between items-center">
       <label className="text-label-md font-label-md text-on-background group-hover:text-primary transition-colors" htmlFor="das">DAS (Delayed Auto Shift)</label>
-      <span className="text-label-sm font-label-sm text-primary bg-surface-variant px-2 py-1">{das}ms</span>
+      <span className="text-label-sm font-label-sm text-primary bg-surface-variant px-2 py-1">133ms</span>
       </div>
-      <input className="w-full h-1 bg-surface-variant rounded-none appearance-none cursor-pointer mt-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background" id="das" max="300" min="50" type="range" value={das} onChange={(e) => setDas(Number(e.target.value))} />
+      <input className="w-full h-1 bg-surface-variant rounded-none appearance-none cursor-pointer mt-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background" id="das" max="300" min="50" type="range" value={settings.das} onChange={(e) => updateSetting('das', Number(e.target.value))} />
       <div className="flex justify-between text-label-sm font-label-sm text-on-surface-variant mt-1">
       <span>Fast</span>
       <span>Slow</span>
@@ -185,9 +175,9 @@ export function GameOptions({ actions }: GameOptionsProps) {
       <div className="flex flex-col gap-2 group">
       <div className="flex justify-between items-center">
       <label className="text-label-md font-label-md text-on-background group-hover:text-primary transition-colors" htmlFor="arr">ARR (Auto Repeat Rate)</label>
-      <span className="text-label-sm font-label-sm text-primary bg-surface-variant px-2 py-1">{arr}ms</span>
+      <span className="text-label-sm font-label-sm text-primary bg-surface-variant px-2 py-1">10ms</span>
       </div>
-      <input className="w-full h-1 bg-surface-variant rounded-none appearance-none cursor-pointer mt-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background" id="arr" max="50" min="0" type="range" value={arr} onChange={(e) => setArr(Number(e.target.value))} />
+      <input className="w-full h-1 bg-surface-variant rounded-none appearance-none cursor-pointer mt-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background" id="arr" max="50" min="0" type="range" value={settings.arr} onChange={(e) => updateSetting('arr', Number(e.target.value))} />
       <div className="flex justify-between text-label-sm font-label-sm text-on-surface-variant mt-1">
       <span>Instant</span>
       <span>Laggy</span>
