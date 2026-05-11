@@ -7,7 +7,7 @@
 // 3. Wire interactive controls through the typed actions prop
 // 4. Replace placeholder data with props/state
 
-import { ArrowLeft, ArrowRight, Circle, HandPointer, Settings, User } from "lucide-react";
+import { ArrowLeft, ArrowRight, Circle, MousePointer, Settings, User } from "lucide-react";
 
 
 export type ControlsHelpActionId = never;
@@ -83,7 +83,7 @@ export function ControlsHelp(_props: ControlsHelpProps) {
       {/* Touch Controls */}
       <section className="bg-[#111827] machined-border rounded p-6">
       <h3 className="text-headline-md font-headline-md text-primary mb-6 border-b border-outline-variant pb-2 flex items-center gap-2">
-      <HandPointer aria-hidden={true} focusable="false" /> Touch
+      <MousePointer aria-hidden={true} focusable="false" /> Touch
                           </h3>
       <div className="relative w-full aspect-[4/3] bg-surface-container-lowest rounded machined-border flex items-center justify-center mb-6 overflow-hidden">
       {/* Simulated Screen */}
@@ -113,7 +113,7 @@ export function ControlsHelp(_props: ControlsHelpProps) {
       <span className="font-label-md text-label-md text-on-surface-variant">Swipe Down to soft drop.</span>
       </li>
       <li className="flex items-center gap-4">
-      <HandPointer className="text-primary" aria-hidden={true} focusable="false" />
+      <MousePointer className="text-primary" aria-hidden={true} focusable="false" />
       <span className="font-label-md text-label-md text-on-surface-variant">Tap screen to rotate.</span>
       </li>
       </ul>
