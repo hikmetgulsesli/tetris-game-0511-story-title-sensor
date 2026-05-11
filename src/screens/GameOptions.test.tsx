@@ -243,4 +243,69 @@ describe('GameOptions', () => {
     fireEvent.click(screen.getByText('Revert Defaults'));
     expect(masterVolume.value).toBe('80');
   });
+
+  it('shows validation error for invalid DAS value loaded from storage', () => {
+    localStorage.setItem('tetris-settings', JSON.stringify({
+      masterVolume: 80,
+      sfxVolume: 100,
+      muteAll: false,
+      difficulty: 'normal',
+      das: 10,
+      arr: 10,
+    }));
+
+    render(
+      <AppProvider>
+        <GameOptions />
+      </AppProvider>
+    );
+
+    fireEvent.click(screen.getByText('Save Configuration'));
+    expect(screen.getByText('DAS must be between 50ms and 300ms.')).toBeInTheDocument();
+  });
+
+  it('shows validation error for invalid ARR value loaded from storage', () => {
+    localStorage.setItem('tetris-settings', JSON.stringify({
+      masterVolume: 80,
+      sfxVolume: 100,
+      muteAll: false,
+      difficulty: 'normal',
+      das: 133,
+      arr: 100,
+    }));
+
+    render(
+      <AppProvider>
+        <GameOptions />
+      </AppProvider>
+    );
+
+    fireEvent.click(screen.getByText('Save Configuration'));
+    expect(screen.getByText('ARR must be between 0ms and 50ms.')).toBeInTheDocument();
+  });
+
+  it('clears validation error after successful save', () => {
+    localStorage.setItem('tetris-settings', JSON.stringify({
+      masterVolume: 80,
+      sfxVolume: 100,
+      muteAll: false,
+      difficulty: 'normal',
+      das: 10,
+      arr: 10,
+    }));
+
+    render(
+      <AppProvider>
+        <GameOptions />
+      </AppProvider>
+    );
+
+    fireEvent.click(screen.getByText('Save Configuration'));
+    expect(screen.getByText('DAS must be between 50ms and 300ms.')).toBeInTheDocument();
+
+    const das = screen.getByLabelText('DAS (Delayed Auto Shift)') as HTMLInputElement;
+    fireEvent.change(das, { target: { value: '133' } });
+    fireEvent.click(screen.getByText('Save Configuration'));
+    expect(screen.queryByText('DAS must be between 50ms and 300ms.')).not.toBeInTheDocument();
+  });
 });

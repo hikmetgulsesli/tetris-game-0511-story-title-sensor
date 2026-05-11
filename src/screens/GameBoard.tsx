@@ -153,11 +153,11 @@ export function GameBoard({ actions }: GameBoardProps) {
             </div>
           </div>
           {/* Center Panel: The Game Board */}
-          <div className="order-1 md:order-2 flex flex-col items-center justify-center focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 focus-within:ring-offset-background outline-none" tabIndex={0} role="application" aria-label="Tetris game board">
+          <div className="order-1 md:order-2 flex flex-col items-center justify-center focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 focus-within:ring-offset-background outline-none" tabIndex={0}>
             {/* Board Frame */}
             <div className="bg-[#111827] p-2 rounded-lg border-2 border-[#334155] shadow-[0_0_20px_rgba(0,0,0,0.5)]">
               {/* The Grid (10x20) */}
-              <div className="w-[320px] h-[640px] bg-[#0F172A] tetris-grid-bg relative overflow-hidden border border-[#334155]/50">
+              <div role="application" aria-label="Tetris game board" className="w-[320px] h-[640px] bg-[#0F172A] tetris-grid-bg relative overflow-hidden border border-[#334155]/50">
                 {/* Locked board cells */}
                 {boardCells.map(({ x, y, type }) => (
                   <div
@@ -229,7 +229,7 @@ export function GameBoard({ actions }: GameBoardProps) {
           <div className="flex flex-col gap-4 w-full order-3 hidden md:flex">
             {/* Next Queue */}
             <div className="bg-[#111827] border border-[#334155] rounded p-4 flex flex-col">
-              <h2 className="text-label-sm font-label-sm text-on-surface-variant uppercase mb-4 text-center cursor-pointer hover:text-primary transition-colors" role="button" tabIndex={0} aria-label="View full piece queue" onClick={() => appActions.goToNextPiece()}>Next</h2>
+              <h2 className="text-label-sm font-label-sm text-on-surface-variant uppercase mb-4 text-center">Next</h2>
               <div className="flex flex-col gap-4 items-center">
                 {nextPreview.map((type, idx) => {
                   const containerSize = idx === 0 ? 96 : 64;
@@ -260,19 +260,19 @@ export function GameBoard({ actions }: GameBoardProps) {
       </main>
       {/* BottomNavBar (Mobile Only) */}
       <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-[56px] bg-surface dark:bg-surface border-t border-outline-variant dark:border-outline-variant md:hidden">
-        <a role="button" aria-label="Battle" className="flex flex-col items-center justify-center text-on-primary bg-primary rounded-none w-full h-full border-t-2 border-primary active:opacity-80 transition-opacity duration-100 group" href="#" onClick={(e) => handleNav(e, 'menu')}>
+        <a className="flex flex-col items-center justify-center text-on-primary bg-primary rounded-none w-full h-full border-t-2 border-primary active:opacity-80 transition-opacity duration-100 group" href="#" onClick={(e) => handleNav(e, 'menu')}>
           <Gamepad2 style={{ fontVariationSettings: "'FILL' 1" }} className="text-[24px] mb-1 group-hover:bg-surface-container-high transition-colors duration-200" aria-hidden={true} focusable="false" />
           <span className="text-label-sm font-label-sm">Battle</span>
         </a>
-        <a role="button" aria-label="Ranks" className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100 group" href="#" onClick={(e) => handleNav(e, 'ranks')}>
+        <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100 group" href="#" onClick={(e) => handleNav(e, 'ranks')}>
           <Trophy style={{ fontVariationSettings: "'FILL' 0" }} className="text-[24px] mb-1" aria-hidden={true} focusable="false" />
           <span className="text-label-sm font-label-sm">Ranks</span>
         </a>
-        <a role="button" aria-label="Controls" className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100 group" href="#" onClick={(e) => handleNav(e, 'controls')}>
+        <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100 group" href="#" onClick={(e) => handleNav(e, 'controls')}>
           <Keyboard style={{ fontVariationSettings: "'FILL' 0" }} className="text-[24px] mb-1" aria-hidden={true} focusable="false" />
           <span className="text-label-sm font-label-sm">Controls</span>
         </a>
-        <a role="button" aria-label="Account" className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100 group" href="#" onClick={(e) => handleNav(e, 'options')}>
+        <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100 group" href="#" onClick={(e) => handleNav(e, 'options')}>
           <User style={{ fontVariationSettings: "'FILL' 0" }} className="text-[24px] mb-1" aria-hidden={true} focusable="false" />
           <span className="text-label-sm font-label-sm">Account</span>
         </a>

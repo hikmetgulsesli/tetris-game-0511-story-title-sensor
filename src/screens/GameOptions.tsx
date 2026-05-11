@@ -65,6 +65,18 @@ export function GameOptions({ actions }: GameOptionsProps) {
   const [difficulty, setDifficulty] = useState<'easy' | 'normal' | 'hard'>(DEFAULTS.difficulty);
   const [das, setDas] = useState(DEFAULTS.das);
   const [arr, setArr] = useState(DEFAULTS.arr);
+  const [errors, setErrors] = useState<{ das?: string; arr?: string }>({});
+
+  const validate = (values: { das: number; arr: number }) => {
+    const newErrors: { das?: string; arr?: string } = {};
+    if (values.das < 50 || values.das > 300) {
+      newErrors.das = 'DAS must be between 50ms and 300ms.';
+    }
+    if (values.arr < 0 || values.arr > 50) {
+      newErrors.arr = 'ARR must be between 0ms and 50ms.';
+    }
+    return newErrors;
+  };
 
   useEffect(() => {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -85,15 +97,19 @@ export function GameOptions({ actions }: GameOptionsProps) {
   }, []);
 
   const handleSave = () => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      masterVolume,
-      sfxVolume,
-      muteAll,
-      difficulty,
-      das,
-      arr,
-    }));
-    actions?.["save-configuration-4"]?.();
+    const newErrors = validate({ das, arr });
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length === 0) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        masterVolume,
+        sfxVolume,
+        muteAll,
+        difficulty,
+        das,
+        arr,
+      }));
+      actions?.["save-configuration-4"]?.();
+    }
   };
 
   const handleRevert = () => {
@@ -103,6 +119,7 @@ export function GameOptions({ actions }: GameOptionsProps) {
     setDifficulty(DEFAULTS.difficulty);
     setDas(DEFAULTS.das);
     setArr(DEFAULTS.arr);
+    setErrors({});
     actions?.["revert-defaults-5"]?.();
   };
 
@@ -271,6 +288,7 @@ export function GameOptions({ actions }: GameOptionsProps) {
                   <span>Fast</span>
                   <span>Slow</span>
                 </div>
+                {errors.das && <p className="text-label-sm font-label-sm text-error mt-1">{errors.das}</p>}
               </div>
               <div className="flex flex-col gap-2 group">
                 <div className="flex justify-between items-center">
@@ -290,6 +308,7 @@ export function GameOptions({ actions }: GameOptionsProps) {
                   <span>Instant</span>
                   <span>Laggy</span>
                 </div>
+                {errors.arr && <p className="text-label-sm font-label-sm text-error mt-1">{errors.arr}</p>}
               </div>
             </div>
           </section>
@@ -324,19 +343,19 @@ export function GameOptions({ actions }: GameOptionsProps) {
       </main>
       {/* BottomNavBar (Mobile Only) */}
       <nav className="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-[56px] bg-surface dark:bg-surface border-t border-outline-variant dark:border-outline-variant">
-        <a role="button" aria-label="Battle" className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100" href="#" onClick={(e) => handleNav(e, 'menu')}>
+        <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100" href="#" onClick={(e) => handleNav(e, 'menu')}>
           <LayoutGrid aria-hidden={true} focusable="false" />
           <span className="text-label-sm font-label-sm mt-1">Battle</span>
         </a>
-        <a role="button" aria-label="Ranks" className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100" href="#" onClick={(e) => handleNav(e, 'ranks')}>
+        <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100" href="#" onClick={(e) => handleNav(e, 'ranks')}>
           <User aria-hidden={true} focusable="false" />
           <span className="text-label-sm font-label-sm mt-1">Ranks</span>
         </a>
-        <a role="button" aria-label="Controls" className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100" href="#" onClick={(e) => handleNav(e, 'controls')}>
+        <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100" href="#" onClick={(e) => handleNav(e, 'controls')}>
           <Keyboard aria-hidden={true} focusable="false" />
           <span className="text-label-sm font-label-sm mt-1">Controls</span>
         </a>
-        <a role="button" aria-label="Account" className="flex flex-col items-center justify-center text-on-primary bg-primary rounded-none w-full h-full border-t-2 border-primary hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100" href="#" onClick={(e) => handleNav(e, 'options')}>
+        <a className="flex flex-col items-center justify-center text-on-primary bg-primary rounded-none w-full h-full border-t-2 border-primary hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100" href="#" onClick={(e) => handleNav(e, 'options')}>
           <User aria-hidden={true} focusable="false" />
           <span className="text-label-sm font-label-sm mt-1">Account</span>
         </a>

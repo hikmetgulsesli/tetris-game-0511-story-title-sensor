@@ -33,6 +33,7 @@ export interface GameActions {
   tick: () => void;
   resetGame: () => void;
   clearData: () => void;
+  saveSettings: () => void;
 }
 
 export interface UseAppStateReturn {
@@ -307,7 +308,11 @@ export function useAppState(): UseAppStateReturn {
 
   const clearData = useCallback(() => {
     clearAllData();
-    setState(() => getInitialGameState(0));
+    setState(prev => ({ ...prev, highScore: 0 }));
+  }, []);
+
+  const saveSettings = useCallback(() => {
+    // Settings are persisted by GameOptions component; this is a no-op hook for parent-level wiring
   }, []);
 
   // Test bridge & window.app exposure (AC-5)
@@ -347,6 +352,7 @@ export function useAppState(): UseAppStateReturn {
       get nextPiece() { return stateRef.current.nextPieces[0] ?? null; },
       get paused() { return stateRef.current.phase === 'paused'; },
       get gameOver() { return stateRef.current.phase === 'gameover'; },
+      get status() { return stateRef.current.phase; },
       get storageStatus() {
         try {
           const test = '__tetris_storage_test__';
@@ -358,7 +364,6 @@ export function useAppState(): UseAppStateReturn {
         }
       },
       get lastError() { return null; },
-      get status() { return stateRef.current.phase; },
     };
   }, []);
 
@@ -381,6 +386,7 @@ export function useAppState(): UseAppStateReturn {
     tick,
     resetGame,
     clearData,
+    saveSettings,
   }), [
     startGame,
     pauseGame,
@@ -400,6 +406,7 @@ export function useAppState(): UseAppStateReturn {
     tick,
     resetGame,
     clearData,
+    saveSettings,
   ]);
 
   return { state, actions };
