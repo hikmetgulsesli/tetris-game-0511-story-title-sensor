@@ -154,6 +154,33 @@ describe('useAppState', () => {
     expect((window as any).app).toBeDefined();
     expect(typeof (window as any).app.screen).toBe('string');
     expect(typeof (window as any).app.score).toBe('number');
+    expect(typeof (window as any).app.status).toBe('string');
+  });
+
+  it('app.status reflects current phase', () => {
+    const { result } = renderHook(() => useAppState());
+    expect((window as any).app.status).toBe('playing');
+    act(() => result.current.actions.pauseGame());
+    expect((window as any).app.status).toBe('paused');
+  });
+
+  it('navigates to nextpiece', () => {
+    const { result } = renderHook(() => useAppState());
+    act(() => result.current.actions.goToNextPiece());
+    expect(result.current.state.phase).toBe('nextpiece');
+  });
+
+  it('saveSettings is callable', () => {
+    const { result } = renderHook(() => useAppState());
+    expect(() => act(() => result.current.actions.saveSettings())).not.toThrow();
+  });
+
+  it('clearData resets highScore but preserves phase', () => {
+    const { result } = renderHook(() => useAppState());
+    act(() => result.current.actions.goToOptions());
+    act(() => result.current.actions.clearData());
+    expect(result.current.state.phase).toBe('options');
+    expect(result.current.state.highScore).toBe(0);
   });
 
   it('render_game_to_text returns valid JSON', () => {

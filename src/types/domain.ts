@@ -1,6 +1,6 @@
 export type TetrominoType = 'I' | 'O' | 'T' | 'S' | 'Z' | 'J' | 'L';
 
-export type GamePhase = 'menu' | 'playing' | 'paused' | 'gameover' | 'controls' | 'options' | 'ranks';
+export type GamePhase = 'menu' | 'playing' | 'paused' | 'gameover' | 'controls' | 'options' | 'ranks' | 'nextpiece';
 
 export interface Position {
   x: number;

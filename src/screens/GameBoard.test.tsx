@@ -74,4 +74,14 @@ describe('GameBoard', () => {
     );
     expect(screen.getByText('Playing')).toBeInTheDocument();
   });
+
+  it('game board has ARIA role and label', () => {
+    render(
+      <AppProvider>
+        <GameBoard />
+      </AppProvider>
+    );
+    const board = screen.getByRole('application');
+    expect(board).toHaveAttribute('aria-label', 'Tetris game board');
+  });
 });

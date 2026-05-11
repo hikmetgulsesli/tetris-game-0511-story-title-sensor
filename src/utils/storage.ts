@@ -61,6 +61,7 @@ export function clearAllData(): void {
   try {
     localStorage.removeItem(HIGH_SCORES_KEY);
     localStorage.removeItem(HIGH_SCORE_KEY);
+    localStorage.removeItem('tetris-settings');
   } catch {
     // Ignore
   }
