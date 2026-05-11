@@ -247,7 +247,7 @@ export function getInitialGameState(highScore: number = 0): GameState {
   const { queue: nextQueue, bag: newBag } = fillQueue(queue, bag);
 
   return {
-    phase: 'menu',
+    phase: 'playing',
     board: createEmptyBoard(),
     currentPiece: current,
     nextPieces: nextQueue,

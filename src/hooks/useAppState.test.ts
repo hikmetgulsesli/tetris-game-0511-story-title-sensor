@@ -8,9 +8,9 @@ describe('useAppState', () => {
     clearAllData();
   });
 
-  it('starts in menu phase', () => {
+  it('starts in playing phase', () => {
     const { result } = renderHook(() => useAppState());
-    expect(result.current.state.phase).toBe('menu');
+    expect(result.current.state.phase).toBe('playing');
   });
 
   it('starts game transitions to playing', () => {
@@ -142,7 +142,7 @@ describe('useAppState', () => {
     act(() => result.current.actions.startGame());
     act(() => result.current.actions.hardDrop());
     act(() => result.current.actions.resetGame());
-    expect(result.current.state.phase).toBe('menu');
+    expect(result.current.state.phase).toBe('playing');
     expect(result.current.state.score).toBe(0);
   });
 
@@ -160,7 +160,7 @@ describe('useAppState', () => {
     renderHook(() => useAppState());
     const json = (window as any).render_game_to_text();
     const parsed = JSON.parse(json);
-    expect(parsed.mode).toBe('menu');
+    expect(parsed.mode).toBe('playing');
     expect(parsed.score).toBe(0);
     expect(Array.isArray(parsed.board)).toBe(true);
   });

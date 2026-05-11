@@ -227,9 +227,9 @@ describe('domain', () => {
   });
 
   describe('getInitialGameState', () => {
-    it('returns menu phase', () => {
+    it('returns playing phase', () => {
       const state = getInitialGameState();
-      expect(state.phase).toBe('menu');
+      expect(state.phase).toBe('playing');
     });
 
     it('has empty board', () => {
@@ -290,8 +290,8 @@ describe('domain', () => {
 
     it('does nothing when not playing', () => {
       const state = getInitialGameState();
-      const next = tickGame(state);
-      expect(next).toEqual(state);
+      const next = tickGame({ ...state, phase: 'menu' });
+      expect(next).toEqual({ ...state, phase: 'menu' });
     });
   });
 
