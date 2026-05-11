@@ -7,7 +7,7 @@
 // 3. Wire interactive controls through the typed actions prop
 // 4. Replace placeholder data with props/state
 
-import { Circle, Settings } from "lucide-react";
+import { Circle, HelpCircle, Settings } from "lucide-react";
 import { useAppContext } from '../contexts/AppContext';
 import { TETROMINOES, type TetrominoType } from '../types/domain';
 
@@ -75,10 +75,10 @@ export function NextPiecePreview({ actions }: NextPiecePreviewProps) {
           <h1 className="text-headline-md font-headline-md font-bold tracking-tighter text-primary dark:text-primary uppercase">TETRIS.IO</h1>
         </div>
         <div className="flex items-center gap-unit">
-          <button className="w-touch-target h-touch-target flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 active:scale-95 rounded" type="button" data-action-id="button-1-1" onClick={actions?.["button-1-1"]} aria-label="Help">
-            <Circle aria-hidden={true} focusable="false" />
+          <button className="w-touch-target h-touch-target flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 active:scale-95 rounded disabled:opacity-40 disabled:cursor-not-allowed" type="button" data-action-id="button-1-1" onClick={actions?.["button-1-1"]} disabled={!actions?.["button-1-1"]} aria-label="Help">
+            <HelpCircle aria-hidden={true} focusable="false" />
           </button>
-          <button className="w-touch-target h-touch-target flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 active:scale-95 rounded" type="button" data-action-id="button-2-2" onClick={actions?.["button-2-2"]} aria-label="Settings">
+          <button className="w-touch-target h-touch-target flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 active:scale-95 rounded disabled:opacity-40 disabled:cursor-not-allowed" type="button" data-action-id="button-2-2" onClick={actions?.["button-2-2"]} disabled={!actions?.["button-2-2"]} aria-label="Settings">
             <Settings aria-hidden={true} focusable="false" />
           </button>
         </div>
