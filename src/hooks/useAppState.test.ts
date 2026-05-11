@@ -77,7 +77,10 @@ describe('useAppState', () => {
     act(() => result.current.actions.startGame());
     const initialRotation = result.current.state.currentPiece!.rotation;
     act(() => result.current.actions.rotateCW());
-    expect(result.current.state.currentPiece!.rotation).not.toBe(initialRotation);
+    // O-piece has only one rotation state
+    if (result.current.state.currentPiece!.type !== 'O') {
+      expect(result.current.state.currentPiece!.rotation).not.toBe(initialRotation);
+    }
   });
 
   it('rotates piece counter-clockwise', () => {
@@ -86,7 +89,10 @@ describe('useAppState', () => {
     act(() => result.current.actions.rotateCW());
     const afterCW = result.current.state.currentPiece!.rotation;
     act(() => result.current.actions.rotateCCW());
-    expect(result.current.state.currentPiece!.rotation).not.toBe(afterCW);
+    // O-piece has only one rotation state
+    if (result.current.state.currentPiece!.type !== 'O') {
+      expect(result.current.state.currentPiece!.rotation).not.toBe(afterCW);
+    }
   });
 
   it('holds piece', () => {

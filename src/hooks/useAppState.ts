@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import type { GameState, GamePhase, TetrominoType } from '../types/domain';
 import {
   getInitialGameState,
@@ -43,6 +43,20 @@ export function useAppState(): UseAppStateReturn {
   const [state, setState] = useState<GameState>(() => getInitialGameState(getHighScore()));
   const stateRef = useRef(state);
   stateRef.current = state;
+
+  // Persist high score on game over
+  useEffect(() => {
+    if (state.phase === 'gameover') {
+      const entry = {
+        score: state.score,
+        level: state.level,
+        lines: state.lines,
+        date: new Date().toISOString(),
+      };
+      saveHighScore(entry);
+      setHighScore(state.highScore);
+    }
+  }, [state.phase, state.score, state.level, state.lines, state.highScore]);
 
   // Auto-drop timer
   useEffect(() => {
@@ -291,7 +305,7 @@ export function useAppState(): UseAppStateReturn {
     setState(() => getInitialGameState(0));
   }, []);
 
-  // Test bridge
+  // Test bridge & window.app exposure (AC-5)
   useEffect(() => {
     const w = window as unknown as Record<string, unknown>;
     w.advanceTime = (ms: number) => {
@@ -320,9 +334,30 @@ export function useAppState(): UseAppStateReturn {
       });
     };
     w.game = stateRef;
+    w.app = {
+      get screen() { return stateRef.current.phase; },
+      get score() { return stateRef.current.score; },
+      get level() { return stateRef.current.level; },
+      get lines() { return stateRef.current.lines; },
+      get activePiece() { return stateRef.current.currentPiece; },
+      get nextPiece() { return stateRef.current.nextPieces[0] ?? null; },
+      get paused() { return stateRef.current.phase === 'paused'; },
+      get gameOver() { return stateRef.current.phase === 'gameover'; },
+      get storageStatus() {
+        try {
+          const test = '__tetris_storage_test__';
+          localStorage.setItem(test, test);
+          localStorage.removeItem(test);
+          return 'available';
+        } catch {
+          return 'unavailable';
+        }
+      },
+      get lastError() { return null; },
+    };
   }, []);
 
-  const actions: GameActions = {
+  const actions: GameActions = useMemo(() => ({
     startGame,
     pauseGame,
     resumeGame,
@@ -340,7 +375,25 @@ export function useAppState(): UseAppStateReturn {
     tick,
     resetGame,
     clearData,
-  };
+  }), [
+    startGame,
+    pauseGame,
+    resumeGame,
+    goToMenu,
+    goToControls,
+    goToOptions,
+    goToRanks,
+    moveLeft,
+    moveRight,
+    softDrop,
+    hardDrop,
+    rotateCW,
+    rotateCCW,
+    holdPieceAction,
+    tick,
+    resetGame,
+    clearData,
+  ]);
 
   return { state, actions };
 }

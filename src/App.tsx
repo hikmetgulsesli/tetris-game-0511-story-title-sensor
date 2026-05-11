@@ -3,11 +3,11 @@ import {
   GameBoard,
   MainMenu,
   ControlsHelp,
-  NextPiecePreview,
   GameOver,
   PauseOverlay,
   GameOptions,
 } from './screens';
+import { getHighScores } from './utils/storage';
 import './App.css';
 
 export default function App() {
@@ -113,12 +113,35 @@ export default function App() {
       )}
 
       {phase === 'ranks' && (
-        <NextPiecePreview
-          actions={{
-            'button-1-1': actions.goToControls,
-            'button-2-2': actions.goToOptions,
-          }}
-        />
+        <div className="min-h-screen flex flex-col items-center justify-center p-6">
+          <div className="w-full max-w-md rounded-xl border border-surface/20 bg-surface p-8 shadow-lg">
+            <h2 className="mb-6 text-center text-2xl font-bold text-on-surface">Sıralama</h2>
+            <div className="space-y-3">
+              {getHighScores().length === 0 && (
+                <p className="text-center text-on-surface/60">Henüz skor yok.</p>
+              )}
+              {getHighScores().map((entry, i) => (
+                <div
+                  key={`${entry.date}-${i}`}
+                  className="flex items-center justify-between rounded-lg bg-background/50 px-4 py-3"
+                >
+                  <span className="font-medium text-on-surface">
+                    #{i + 1} — {entry.score} puan
+                  </span>
+                  <span className="text-sm text-on-surface/60">
+                    Seviye {entry.level} / {entry.lines} satır
+                  </span>
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={actions.goToMenu}
+              className="mt-6 w-full rounded-lg bg-primary px-4 py-3 font-semibold text-on-primary transition hover:opacity-90"
+            >
+              Ana Menü
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
