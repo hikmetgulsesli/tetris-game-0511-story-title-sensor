@@ -43,7 +43,7 @@ function MiniPieceGrid({ type }: { type: TetrominoType }) {
 }
 
 export function NextPiecePreview({ actions }: NextPiecePreviewProps) {
-  const { state } = useAppContext();
+  const { state, actions: appActions } = useAppContext();
   const nextPreview = state.nextPieces.slice(0, 3);
 
   // Decorative bias values derived from piece type for consistent visuals
@@ -71,7 +71,9 @@ export function NextPiecePreview({ actions }: NextPiecePreviewProps) {
       {/* TopAppBar */}
       <header className="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-touch-target bg-surface/95 backdrop-blur-sm border-b border-outline-variant dark:border-outline-variant">
         <div className="flex items-center gap-2">
-          <Circle className="text-primary text-headline-md" aria-hidden={true} focusable="false" />
+          <button onClick={() => appActions.goToMenu()} aria-label="Menu" className="flex items-center justify-center">
+            <Circle className="text-primary text-headline-md" aria-hidden={true} focusable="false" />
+          </button>
           <h1 className="text-headline-md font-headline-md font-bold tracking-tighter text-primary dark:text-primary uppercase">TETRIS.IO</h1>
         </div>
         <div className="flex items-center gap-unit">
