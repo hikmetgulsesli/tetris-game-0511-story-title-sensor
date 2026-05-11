@@ -8,11 +8,11 @@
 // 4. Replace placeholder data with props/state
 
 import { useMemo } from 'react';
-import { ArrowLeft, ArrowRight, Circle, RotateCw, Settings } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowDown, Circle, HelpCircle, RotateCw, Settings, ChevronDown } from "lucide-react";
 import { useAppContext } from '../contexts/AppContext';
 import { getPieceCells, getGhostY, TETROMINOES, BOARD_WIDTH, BOARD_HEIGHT, type TetrominoType } from '../types/domain';
 
-export type GameBoardActionId = "button-1-1" | "button-2-2" | "button-3-3" | "button-4-4" | "button-5-5" | "button-6-6" | "button-7-7" | "pause-esc-8" | "next-piece-9";
+export type GameBoardActionId = "button-1-1" | "button-2-2" | "button-3-3" | "button-4-4" | "button-5-5" | "button-6-6" | "button-7-7" | "pause-esc-8";
 
 export interface GameBoardProps {
   actions?: Partial<Record<GameBoardActionId, () => void>>;
@@ -94,7 +94,7 @@ export function GameBoard({ actions }: GameBoardProps) {
         </div>
         <div className="flex items-center gap-2 text-on-surface-variant dark:text-on-surface-variant">
           <button className="min-touch flex items-center justify-center hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 rounded-full active:scale-95 transition-transform duration-100" type="button" data-action-id="button-1-1" onClick={actions?.["button-1-1"]} aria-label="Help">
-            <Circle style={{ fontVariationSettings: "'FILL' 0" }} aria-hidden={true} focusable="false" />
+            <HelpCircle style={{ fontVariationSettings: "'FILL' 0" }} aria-hidden={true} focusable="false" />
           </button>
           <button className="min-touch flex items-center justify-center hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 rounded-full active:scale-95 transition-transform duration-100" type="button" data-action-id="button-2-2" onClick={actions?.["button-2-2"]} aria-label="Settings">
             <Settings style={{ fontVariationSettings: "'FILL' 0" }} aria-hidden={true} focusable="false" />
@@ -135,11 +135,11 @@ export function GameBoard({ actions }: GameBoardProps) {
             </div>
           </div>
           {/* Center Panel: The Game Board */}
-          <div className="order-1 md:order-2 flex flex-col items-center justify-center focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 focus-within:ring-offset-background outline-none" tabIndex={0} role="application" aria-label="Tetris game board">
+          <div className="order-1 md:order-2 flex flex-col items-center justify-center focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 focus-within:ring-offset-background outline-none" tabIndex={0}>
             {/* Board Frame */}
             <div className="bg-[#111827] p-2 rounded-lg border-2 border-[#334155] shadow-[0_0_20px_rgba(0,0,0,0.5)]">
               {/* The Grid (10x20) */}
-              <div className="w-[320px] h-[640px] bg-[#0F172A] tetris-grid-bg relative overflow-hidden border border-[#334155]/50">
+              <div role="application" aria-label="Tetris game board" className="w-[320px] h-[640px] bg-[#0F172A] tetris-grid-bg relative overflow-hidden border border-[#334155]/50">
                 {/* Locked board cells */}
                 {boardCells.map(({ x, y, type }, i) => (
                   <div
@@ -194,7 +194,7 @@ export function GameBoard({ actions }: GameBoardProps) {
                 <ArrowLeft aria-hidden={true} focusable="false" />
               </button>
               <button className="bg-[#111827] border border-[#334155] text-on-surface flex items-center justify-center rounded min-touch active:bg-surface-variant" type="button" data-action-id="button-4-4" onClick={actions?.["button-4-4"]} aria-label="Down">
-                <Circle aria-hidden={true} focusable="false" />
+                <ArrowDown aria-hidden={true} focusable="false" />
               </button>
               <button className="bg-[#111827] border border-[#334155] text-on-surface flex items-center justify-center rounded min-touch active:bg-surface-variant" type="button" data-action-id="button-5-5" onClick={actions?.["button-5-5"]} aria-label="Right">
                 <ArrowRight aria-hidden={true} focusable="false" />
@@ -203,14 +203,14 @@ export function GameBoard({ actions }: GameBoardProps) {
                 <RotateCw aria-hidden={true} focusable="false" />
               </button>
               <button className="bg-primary text-on-primary border border-primary flex items-center justify-center rounded min-touch font-bold active:opacity-80" type="button" data-action-id="button-7-7" onClick={actions?.["button-7-7"]} aria-label="Hard Drop">
-                <Circle aria-hidden={true} focusable="false" />
+                <ChevronDown aria-hidden={true} focusable="false" />
               </button>
             </div>
           </div>
           {/* Right Panel: Next Pieces & Actions */}
           <div className="flex flex-col gap-4 w-full order-3 hidden md:flex">
             {/* Next Queue */}
-            <div className="bg-[#111827] border border-[#334155] rounded p-4 flex flex-col cursor-pointer hover:border-primary transition-colors" onClick={actions?.["next-piece-9"]} role="button" aria-label="View next piece sequence">
+            <div className="bg-[#111827] border border-[#334155] rounded p-4 flex flex-col">
               <h2 className="text-label-sm font-label-sm text-on-surface-variant uppercase mb-4 text-center">Next</h2>
               <div className="flex flex-col gap-4 items-center">
                 {nextPreview.map((type, idx) => {
