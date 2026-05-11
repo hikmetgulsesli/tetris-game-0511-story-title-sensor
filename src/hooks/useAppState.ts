@@ -307,8 +307,7 @@ export function useAppState(): UseAppStateReturn {
 
   // Test bridge & window.app exposure (AC-5)
   useEffect(() => {
-    const w = window as unknown as Record<string, unknown>;
-    w.advanceTime = (ms: number) => {
+    (window as unknown as Record<string, unknown>).advanceTime = (ms: number) => {
       setState(prev => {
         const interval = getDropInterval(prev.level);
         const steps = Math.max(1, Math.round(ms / interval));
@@ -319,7 +318,7 @@ export function useAppState(): UseAppStateReturn {
         return current;
       });
     };
-    w.render_game_to_text = () => {
+    (window as unknown as Record<string, unknown>).render_game_to_text = () => {
       const s = stateRef.current;
       return JSON.stringify({
         mode: s.phase,
@@ -333,8 +332,8 @@ export function useAppState(): UseAppStateReturn {
         highScore: s.highScore,
       });
     };
-    w.game = stateRef;
-    w.app = {
+    (window as unknown as Record<string, unknown>).game = stateRef;
+    (window as any).app = {
       get screen() { return stateRef.current.phase; },
       get score() { return stateRef.current.score; },
       get level() { return stateRef.current.level; },
