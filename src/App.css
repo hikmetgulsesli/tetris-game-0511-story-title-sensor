@@ -1,0 +1,26 @@
+/* App-specific styles */
+
+/* Ensure the app root fills the viewport */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Canvas/game board specific overrides */
+.game-board-container {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Smooth transitions for state changes */
+.app-screen-enter {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.app-screen-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
