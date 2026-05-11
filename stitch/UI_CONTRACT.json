@@ -1,0 +1,765 @@
+[
+  {
+    "screenId": "f21f2ea008e54df4b424a4d16f20afe5",
+    "screenTitle": "Game Board",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "link",
+        "label": "Battle",
+        "href": "#",
+        "line": 305
+      },
+      {
+        "type": "link",
+        "label": "Ranks",
+        "href": "#",
+        "line": 309
+      },
+      {
+        "type": "link",
+        "label": "Controls",
+        "href": "#",
+        "line": 313
+      },
+      {
+        "type": "link",
+        "label": "Account",
+        "href": "#",
+        "line": 317
+      },
+      {
+        "type": "button",
+        "label": "help_outline",
+        "line": 158
+      },
+      {
+        "type": "button",
+        "label": "settings",
+        "line": 161
+      },
+      {
+        "type": "button",
+        "label": "arrow_left",
+        "line": 236
+      },
+      {
+        "type": "button",
+        "label": "arrow_drop_down",
+        "line": 239
+      },
+      {
+        "type": "button",
+        "label": "arrow_right",
+        "line": 242
+      },
+      {
+        "type": "button",
+        "label": "rotate_right",
+        "line": 245
+      },
+      {
+        "type": "button",
+        "label": "keyboard_double_arrow_down",
+        "line": 248
+      },
+      {
+        "type": "button",
+        "label": "Pause (Esc)",
+        "line": 296
+      }
+    ],
+    "navigation": [
+      {
+        "type": "link",
+        "label": "Battle",
+        "href": "#",
+        "line": 305
+      },
+      {
+        "type": "link",
+        "label": "Ranks",
+        "href": "#",
+        "line": 309
+      },
+      {
+        "type": "link",
+        "label": "Controls",
+        "href": "#",
+        "line": 313
+      },
+      {
+        "type": "link",
+        "label": "Account",
+        "href": "#",
+        "line": 317
+      }
+    ],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "help_outline",
+        "line": 158
+      },
+      {
+        "type": "button",
+        "label": "settings",
+        "line": 161
+      },
+      {
+        "type": "button",
+        "label": "arrow_left",
+        "line": 236
+      },
+      {
+        "type": "button",
+        "label": "arrow_drop_down",
+        "line": 239
+      },
+      {
+        "type": "button",
+        "label": "arrow_right",
+        "line": 242
+      },
+      {
+        "type": "button",
+        "label": "rotate_right",
+        "line": 245
+      },
+      {
+        "type": "button",
+        "label": "keyboard_double_arrow_down",
+        "line": 248
+      },
+      {
+        "type": "button",
+        "label": "Pause (Esc)",
+        "line": 296
+      }
+    ],
+    "inputs": [],
+    "hardcodedData": [],
+    "totalInteractive": 12,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "1709d5839e1843e1b5ff099d344c6786",
+    "screenTitle": "Main Menu",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "link",
+        "label": "Battle",
+        "href": "#",
+        "line": 279
+      },
+      {
+        "type": "link",
+        "label": "Ranks",
+        "href": "#",
+        "line": 283
+      },
+      {
+        "type": "link",
+        "label": "Controls",
+        "href": "#",
+        "line": 287
+      },
+      {
+        "type": "link",
+        "label": "Account",
+        "href": "#",
+        "line": 291
+      },
+      {
+        "type": "button",
+        "label": "help_outline",
+        "line": 189
+      },
+      {
+        "type": "button",
+        "label": "settings",
+        "line": 192
+      },
+      {
+        "type": "button",
+        "label": "Resume Game",
+        "line": 241
+      },
+      {
+        "type": "button",
+        "label": "New Game",
+        "line": 250
+      },
+      {
+        "type": "button",
+        "label": "Ranks",
+        "line": 257
+      },
+      {
+        "type": "button",
+        "label": "Controls",
+        "line": 264
+      }
+    ],
+    "navigation": [
+      {
+        "type": "link",
+        "label": "Battle",
+        "href": "#",
+        "line": 279
+      },
+      {
+        "type": "link",
+        "label": "Ranks",
+        "href": "#",
+        "line": 283
+      },
+      {
+        "type": "link",
+        "label": "Controls",
+        "href": "#",
+        "line": 287
+      },
+      {
+        "type": "link",
+        "label": "Account",
+        "href": "#",
+        "line": 291
+      }
+    ],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "help_outline",
+        "line": 189
+      },
+      {
+        "type": "button",
+        "label": "settings",
+        "line": 192
+      },
+      {
+        "type": "button",
+        "label": "Resume Game",
+        "line": 241
+      },
+      {
+        "type": "button",
+        "label": "New Game",
+        "line": 250
+      },
+      {
+        "type": "button",
+        "label": "Ranks",
+        "line": 257
+      },
+      {
+        "type": "button",
+        "label": "Controls",
+        "line": 264
+      }
+    ],
+    "inputs": [],
+    "hardcodedData": [],
+    "totalInteractive": 10,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "251231cf9b6b4bdfbc2f22ac78bb14b6",
+    "screenTitle": "Controls Help",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "link",
+        "label": "Battle",
+        "href": "#",
+        "line": 179
+      },
+      {
+        "type": "link",
+        "label": "Ranks",
+        "href": "#",
+        "line": 180
+      },
+      {
+        "type": "link",
+        "label": "Controls",
+        "href": "#",
+        "line": 181
+      },
+      {
+        "type": "link",
+        "label": "Account",
+        "href": "#",
+        "line": 182
+      },
+      {
+        "type": "link",
+        "label": "Battle",
+        "href": "#",
+        "line": 293
+      },
+      {
+        "type": "link",
+        "label": "Ranks",
+        "href": "#",
+        "line": 297
+      },
+      {
+        "type": "link",
+        "label": "Controls",
+        "href": "#",
+        "line": 301
+      },
+      {
+        "type": "link",
+        "label": "Account",
+        "href": "#",
+        "line": 305
+      }
+    ],
+    "navigation": [
+      {
+        "type": "link",
+        "label": "Battle",
+        "href": "#",
+        "line": 179
+      },
+      {
+        "type": "link",
+        "label": "Ranks",
+        "href": "#",
+        "line": 180
+      },
+      {
+        "type": "link",
+        "label": "Controls",
+        "href": "#",
+        "line": 181
+      },
+      {
+        "type": "link",
+        "label": "Account",
+        "href": "#",
+        "line": 182
+      },
+      {
+        "type": "link",
+        "label": "Battle",
+        "href": "#",
+        "line": 293
+      },
+      {
+        "type": "link",
+        "label": "Ranks",
+        "href": "#",
+        "line": 297
+      },
+      {
+        "type": "link",
+        "label": "Controls",
+        "href": "#",
+        "line": 301
+      },
+      {
+        "type": "link",
+        "label": "Account",
+        "href": "#",
+        "line": 305
+      }
+    ],
+    "buttons": [],
+    "inputs": [],
+    "hardcodedData": [],
+    "totalInteractive": 8,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "6742d0e24c2e485d9c4a29ba1973e845",
+    "screenTitle": "Next Piece Preview",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "button",
+        "label": "help_outline",
+        "line": 178
+      },
+      {
+        "type": "button",
+        "label": "settings",
+        "line": 181
+      }
+    ],
+    "navigation": [],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "help_outline",
+        "line": 178
+      },
+      {
+        "type": "button",
+        "label": "settings",
+        "line": 181
+      }
+    ],
+    "inputs": [],
+    "hardcodedData": [],
+    "totalInteractive": 2,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "19a69d1534b24d5bbf67531f2f419f59",
+    "screenTitle": "Game Over",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "button",
+        "label": "Play Again",
+        "line": 152
+      },
+      {
+        "type": "button",
+        "label": "Return to",
+        "line": 157
+      }
+    ],
+    "navigation": [],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "Play Again",
+        "line": 152
+      },
+      {
+        "type": "button",
+        "label": "Return to",
+        "line": 157
+      }
+    ],
+    "inputs": [],
+    "hardcodedData": [],
+    "totalInteractive": 2,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "230e5810f2864bb1b09f9f9a4af61878",
+    "screenTitle": "Pause Overlay",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "button",
+        "label": "Resume Game",
+        "line": 157
+      },
+      {
+        "type": "button",
+        "label": "Restart",
+        "line": 167
+      },
+      {
+        "type": "button",
+        "label": "Main Menu",
+        "line": 174
+      }
+    ],
+    "navigation": [],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "Resume Game",
+        "line": 157
+      },
+      {
+        "type": "button",
+        "label": "Restart",
+        "line": 167
+      },
+      {
+        "type": "button",
+        "label": "Main Menu",
+        "line": 174
+      }
+    ],
+    "inputs": [],
+    "hardcodedData": [],
+    "totalInteractive": 3,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "1f7655e06ffc41df8c45ef5dbf266f95",
+    "screenTitle": "Game Options",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "link",
+        "label": "Battle",
+        "href": "#",
+        "line": 141
+      },
+      {
+        "type": "link",
+        "label": "Ranks",
+        "href": "#",
+        "line": 142
+      },
+      {
+        "type": "link",
+        "label": "Controls",
+        "href": "#",
+        "line": 143
+      },
+      {
+        "type": "link",
+        "label": "Account",
+        "href": "#",
+        "line": 144
+      },
+      {
+        "type": "link",
+        "label": "Battle",
+        "href": "#",
+        "line": 290
+      },
+      {
+        "type": "link",
+        "label": "Ranks",
+        "href": "#",
+        "line": 294
+      },
+      {
+        "type": "link",
+        "label": "Controls",
+        "href": "#",
+        "line": 298
+      },
+      {
+        "type": "link",
+        "label": "Account",
+        "href": "#",
+        "line": 302
+      },
+      {
+        "type": "button",
+        "label": "Menu",
+        "line": 134
+      },
+      {
+        "type": "button",
+        "label": "Help",
+        "line": 147
+      },
+      {
+        "type": "button",
+        "label": "Settings",
+        "line": 150
+      },
+      {
+        "type": "button",
+        "label": "Save Configuration",
+        "line": 265
+      },
+      {
+        "type": "button",
+        "label": "Revert Defaults",
+        "line": 268
+      },
+      {
+        "type": "button",
+        "label": "Clear Local Data",
+        "line": 280
+      },
+      {
+        "type": "input",
+        "label": "range",
+        "inputType": "range",
+        "line": 175
+      },
+      {
+        "type": "input",
+        "label": "range",
+        "inputType": "range",
+        "line": 183
+      },
+      {
+        "type": "input",
+        "label": "checkbox",
+        "inputType": "checkbox",
+        "line": 190
+      },
+      {
+        "type": "input",
+        "label": "radio",
+        "inputType": "radio",
+        "line": 205
+      },
+      {
+        "type": "input",
+        "label": "radio",
+        "inputType": "radio",
+        "line": 212
+      },
+      {
+        "type": "input",
+        "label": "radio",
+        "inputType": "radio",
+        "line": 219
+      },
+      {
+        "type": "input",
+        "label": "range",
+        "inputType": "range",
+        "line": 239
+      },
+      {
+        "type": "input",
+        "label": "range",
+        "inputType": "range",
+        "line": 250
+      }
+    ],
+    "navigation": [
+      {
+        "type": "link",
+        "label": "Battle",
+        "href": "#",
+        "line": 141
+      },
+      {
+        "type": "link",
+        "label": "Ranks",
+        "href": "#",
+        "line": 142
+      },
+      {
+        "type": "link",
+        "label": "Controls",
+        "href": "#",
+        "line": 143
+      },
+      {
+        "type": "link",
+        "label": "Account",
+        "href": "#",
+        "line": 144
+      },
+      {
+        "type": "link",
+        "label": "Battle",
+        "href": "#",
+        "line": 290
+      },
+      {
+        "type": "link",
+        "label": "Ranks",
+        "href": "#",
+        "line": 294
+      },
+      {
+        "type": "link",
+        "label": "Controls",
+        "href": "#",
+        "line": 298
+      },
+      {
+        "type": "link",
+        "label": "Account",
+        "href": "#",
+        "line": 302
+      }
+    ],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "Menu",
+        "line": 134
+      },
+      {
+        "type": "button",
+        "label": "Help",
+        "line": 147
+      },
+      {
+        "type": "button",
+        "label": "Settings",
+        "line": 150
+      },
+      {
+        "type": "button",
+        "label": "Save Configuration",
+        "line": 265
+      },
+      {
+        "type": "button",
+        "label": "Revert Defaults",
+        "line": 268
+      },
+      {
+        "type": "button",
+        "label": "Clear Local Data",
+        "line": 280
+      }
+    ],
+    "inputs": [
+      {
+        "type": "input",
+        "label": "range",
+        "inputType": "range",
+        "line": 175
+      },
+      {
+        "type": "input",
+        "label": "range",
+        "inputType": "range",
+        "line": 183
+      },
+      {
+        "type": "input",
+        "label": "checkbox",
+        "inputType": "checkbox",
+        "line": 190
+      },
+      {
+        "type": "input",
+        "label": "radio",
+        "inputType": "radio",
+        "line": 205
+      },
+      {
+        "type": "input",
+        "label": "radio",
+        "inputType": "radio",
+        "line": 212
+      },
+      {
+        "type": "input",
+        "label": "radio",
+        "inputType": "radio",
+        "line": 219
+      },
+      {
+        "type": "input",
+        "label": "range",
+        "inputType": "range",
+        "line": 239
+      },
+      {
+        "type": "input",
+        "label": "range",
+        "inputType": "range",
+        "line": 250
+      }
+    ],
+    "hardcodedData": [],
+    "totalInteractive": 22,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  }
+]
