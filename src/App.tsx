@@ -104,7 +104,7 @@ export default function App() {
             'button-2-2': actions.goToControls,
             'button-3-3': actions.goToOptions,
             'save-configuration-4': () => {
-              // Settings are saved via local state in GameOptions; this is a no-op callback
+              // Settings saved via local state in future story
             },
             'revert-defaults-5': actions.resetGame,
             'clear-local-data-6': actions.clearData,
@@ -115,10 +115,10 @@ export default function App() {
       {phase === 'ranks' && (
         <div className="min-h-screen flex flex-col items-center justify-center p-6">
           <div className="w-full max-w-md rounded-xl border border-surface/20 bg-surface p-8 shadow-lg">
-            <h2 className="mb-6 text-center text-2xl font-bold text-on-surface">Leaderboard</h2>
+            <h2 className="mb-6 text-center text-2xl font-bold text-on-surface">Sıralama</h2>
             <div className="space-y-3">
               {getHighScores().length === 0 && (
-                <p className="text-center text-on-surface/60">No scores yet.</p>
+                <p className="text-center text-on-surface/60">Henüz skor yok.</p>
               )}
               {getHighScores().map((entry, i) => (
                 <div
@@ -126,10 +126,10 @@ export default function App() {
                   className="flex items-center justify-between rounded-lg bg-background/50 px-4 py-3"
                 >
                   <span className="font-medium text-on-surface">
-                    #{i + 1} — {entry.score} pts
+                    #{i + 1} — {entry.score} puan
                   </span>
                   <span className="text-sm text-on-surface/60">
-                    Level {entry.level} / {entry.lines} lines
+                    Seviye {entry.level} / {entry.lines} satır
                   </span>
                 </div>
               ))}
@@ -138,7 +138,7 @@ export default function App() {
               onClick={actions.goToMenu}
               className="mt-6 w-full rounded-lg bg-primary px-4 py-3 font-semibold text-on-primary transition hover:opacity-90"
             >
-              Main Menu
+              Ana Menü
             </button>
           </div>
         </div>

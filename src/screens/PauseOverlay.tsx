@@ -7,7 +7,7 @@
 // 3. Wire interactive controls through the typed actions prop
 // 4. Replace placeholder data with props/state
 
-import { Pause, Play, RefreshCw, LogOut, Keyboard } from "lucide-react";
+import { Play, Pause, RefreshCw, LogOut, Keyboard } from "lucide-react";
 import { useAppContext } from '../contexts/AppContext';
 
 export type PauseOverlayActionId = "resume-game-1" | "restart-2" | "main-menu-3";
