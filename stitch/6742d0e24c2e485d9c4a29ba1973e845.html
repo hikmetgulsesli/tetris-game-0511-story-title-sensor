@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tetris.io - Next Sequence Preview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#e7e2d9",
+                      "secondary-container": "#3c4a5e",
+                      "surface-container-low": "#1c1b1b",
+                      "secondary": "#b9c7e0",
+                      "on-secondary": "#233144",
+                      "on-background": "#e5e2e1",
+                      "error-container": "#93000a",
+                      "on-primary": "#2d3133",
+                      "on-surface-variant": "#c4c7c9",
+                      "on-tertiary": "#32302a",
+                      "secondary-fixed": "#d5e3fd",
+                      "on-primary-container": "#626567",
+                      "tertiary-fixed-dim": "#cbc6bd",
+                      "inverse-primary": "#5c5f61",
+                      "surface-tint": "#c4c7c9",
+                      "primary-fixed-dim": "#c4c7c9",
+                      "on-error": "#690005",
+                      "inverse-surface": "#e5e2e1",
+                      "on-secondary-fixed": "#0d1c2f",
+                      "surface-bright": "#3a3939",
+                      "on-surface": "#e5e2e1",
+                      "primary": "#ffffff",
+                      "inverse-on-surface": "#313030",
+                      "primary-container": "#e0e3e5",
+                      "on-error-container": "#ffdad6",
+                      "surface-container": "#201f1f",
+                      "on-primary-fixed": "#191c1e",
+                      "surface-dim": "#131313",
+                      "surface-container-highest": "#353535",
+                      "surface": "#131313",
+                      "surface-variant": "#353535",
+                      "surface-container-high": "#2a2a2a",
+                      "surface-container-lowest": "#0e0e0e",
+                      "outline-variant": "#444749",
+                      "on-secondary-fixed-variant": "#3a485c",
+                      "tertiary": "#ffffff",
+                      "secondary-fixed-dim": "#b9c7e0",
+                      "error": "#ffb4ab",
+                      "tertiary-container": "#e7e2d9",
+                      "on-tertiary-fixed": "#1d1b16",
+                      "background": "#131313",
+                      "on-tertiary-container": "#67645d",
+                      "on-secondary-container": "#abb9d2",
+                      "primary-fixed": "#e0e3e5",
+                      "outline": "#8e9193",
+                      "on-tertiary-fixed-variant": "#494640",
+                      "on-primary-fixed-variant": "#444749"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-padding": "24px",
+                      "grid-block": "32px",
+                      "unit": "4px",
+                      "gutter": "16px",
+                      "touch-target": "44px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "display-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-sm": [
+                              "JetBrains Mono"
+                      ],
+                      "body-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-md": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-md": [
+                              "Hanken Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        /* Faint grid overlay pattern for the background */
+        .bg-grid-pattern {
+            background-image: 
+                linear-gradient(to right, rgba(68, 71, 73, 0.05) 1px, transparent 1px), 
+                linear-gradient(to bottom, rgba(68, 71, 73, 0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+      </style>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col font-body-md text-body-md bg-grid-pattern">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-touch-target bg-surface/95 backdrop-blur-sm border-b border-outline-variant dark:border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-headline-md">grid_view</span>
+<h1 class="text-headline-md font-headline-md font-bold tracking-tighter text-primary dark:text-primary uppercase">TETRIS.IO</h1>
+</div>
+<div class="flex items-center gap-unit">
+<button class="w-touch-target h-touch-target flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 active:scale-95 rounded">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<button class="w-touch-target h-touch-target flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 active:scale-95 rounded">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col md:flex-row items-center md:items-start justify-center pt-24 pb-12 px-gutter gap-gutter w-full max-w-5xl mx-auto">
+<!-- Next Sequence Preview Panel -->
+<section class="bg-surface border-t-[4px] border-t-primary border-x border-b border-outline-variant w-full max-w-sm flex flex-col relative shadow-2xl">
+<!-- Header -->
+<div class="p-gutter border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center">
+<h2 class="text-label-md font-label-md text-on-surface tracking-widest uppercase">Sequence Queue</h2>
+<span class="text-label-sm font-label-sm text-on-surface-variant bg-surface-container px-2 py-1 rounded">LIVE</span>
+</div>
+<!-- Queue Items Container -->
+<div class="p-container-padding flex flex-col gap-8 relative z-10">
+<!-- Incoming Piece (T-Piece / Primary) -->
+<article class="flex flex-col gap-unit w-full group relative focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 focus-within:ring-offset-background" tabindex="0">
+<div class="flex justify-between w-full mb-1">
+<span class="text-label-sm font-label-sm text-primary animate-pulse">INCOMING</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant group-hover:text-primary transition-colors">T-TYPE</span>
+</div>
+<div class="p-6 bg-surface-container-lowest border border-outline-variant w-full flex justify-center items-center rounded-sm transition-colors group-hover:bg-surface-container">
+<!-- T Piece Structure -->
+<div class="grid grid-cols-3 gap-px bg-outline-variant/30 p-px">
+<!-- Minos -->
+<div class="w-grid-block h-grid-block col-start-2 bg-primary flex items-center justify-center relative after:absolute after:inset-px after:border after:border-background/20 shadow-[inset_0_0_12px_rgba(0,0,0,0.3)]"></div>
+<div class="w-grid-block h-grid-block row-start-2 col-start-1 bg-primary flex items-center justify-center relative after:absolute after:inset-px after:border after:border-background/20 shadow-[inset_0_0_12px_rgba(0,0,0,0.3)]"></div>
+<div class="w-grid-block h-grid-block row-start-2 col-start-2 bg-primary flex items-center justify-center relative after:absolute after:inset-px after:border after:border-background/20 shadow-[inset_0_0_12px_rgba(0,0,0,0.3)]"></div>
+<div class="w-grid-block h-grid-block row-start-2 col-start-3 bg-primary flex items-center justify-center relative after:absolute after:inset-px after:border after:border-background/20 shadow-[inset_0_0_12px_rgba(0,0,0,0.3)]"></div>
+</div>
+</div>
+</article>
+<!-- +1 Sequence (Z-Piece / Error Container) -->
+<article class="flex flex-col gap-unit w-full opacity-90 group focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 focus-within:ring-offset-background" tabindex="0">
+<div class="flex justify-between w-full mb-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant">+1 SEQUENCE</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant group-hover:text-error-container transition-colors">Z-TYPE</span>
+</div>
+<div class="p-4 bg-surface-container-lowest/80 border border-outline-variant/80 w-full flex justify-center items-center rounded-sm transition-colors group-hover:bg-surface-container-lowest">
+<div class="grid grid-cols-3 gap-px bg-outline-variant/20 p-px">
+<div class="w-grid-block h-grid-block bg-error-container relative after:absolute after:inset-px after:border after:border-error/30 shadow-[inset_0_0_8px_rgba(0,0,0,0.5)]"></div>
+<div class="w-grid-block h-grid-block bg-error-container relative after:absolute after:inset-px after:border after:border-error/30 shadow-[inset_0_0_8px_rgba(0,0,0,0.5)]"></div>
+<div class="w-grid-block h-grid-block row-start-2 col-start-2 bg-error-container relative after:absolute after:inset-px after:border after:border-error/30 shadow-[inset_0_0_8px_rgba(0,0,0,0.5)]"></div>
+<div class="w-grid-block h-grid-block row-start-2 col-start-3 bg-error-container relative after:absolute after:inset-px after:border after:border-error/30 shadow-[inset_0_0_8px_rgba(0,0,0,0.5)]"></div>
+</div>
+</div>
+</article>
+<!-- +2 Sequence (I-Piece / Secondary) -->
+<article class="flex flex-col gap-unit w-full opacity-70 group focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 focus-within:ring-offset-background" tabindex="0">
+<div class="flex justify-between w-full mb-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant">+2 SEQUENCE</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant group-hover:text-secondary transition-colors">I-TYPE</span>
+</div>
+<div class="p-4 bg-surface-container-lowest/60 border border-outline-variant/60 w-full flex justify-center items-center rounded-sm transition-colors group-hover:bg-surface-container-lowest">
+<div class="grid grid-cols-4 gap-px bg-outline-variant/20 p-px">
+<div class="w-grid-block h-grid-block bg-secondary relative after:absolute after:inset-px after:border after:border-white/20 shadow-[inset_0_0_8px_rgba(0,0,0,0.2)]"></div>
+<div class="w-grid-block h-grid-block bg-secondary relative after:absolute after:inset-px after:border after:border-white/20 shadow-[inset_0_0_8px_rgba(0,0,0,0.2)]"></div>
+<div class="w-grid-block h-grid-block bg-secondary relative after:absolute after:inset-px after:border after:border-white/20 shadow-[inset_0_0_8px_rgba(0,0,0,0.2)]"></div>
+<div class="w-grid-block h-grid-block bg-secondary relative after:absolute after:inset-px after:border after:border-white/20 shadow-[inset_0_0_8px_rgba(0,0,0,0.2)]"></div>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Auxiliary Technical Readout (Bento style context) -->
+<section class="w-full max-w-sm md:w-64 flex flex-col gap-gutter">
+<!-- System Stats Card -->
+<div class="bg-surface border border-outline-variant p-container-padding flex flex-col gap-unit relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary transition-all duration-300 group-hover:w-2"></div>
+<h3 class="text-label-md font-label-md text-secondary tracking-widest uppercase pl-3 mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">memory</span> Engine Data
+                 </h3>
+<div class="flex justify-between items-center pl-3 pt-2 border-t border-outline-variant/50">
+<span class="text-label-sm font-label-sm text-on-surface-variant">RNG Seed</span>
+<span class="text-label-sm font-label-sm text-primary">0x7F4A2B</span>
+</div>
+<div class="flex justify-between items-center pl-3">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Queue Depth</span>
+<span class="text-label-sm font-label-sm text-primary">3 / 5</span>
+</div>
+<div class="flex justify-between items-center pl-3">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Algorithm</span>
+<span class="text-label-sm font-label-sm text-primary">7-Bag</span>
+</div>
+</div>
+<!-- Distribution Mini-Chart -->
+<div class="bg-surface-container border border-outline-variant p-container-padding flex flex-col gap-4">
+<h3 class="text-label-md font-label-md text-on-surface tracking-widest uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">bar_chart</span> Bias Check
+                </h3>
+<div class="flex flex-col gap-3">
+<!-- Distribution Bars -->
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm w-4 text-on-surface-variant">T</span>
+<div class="h-1.5 bg-surface-container-highest flex-1 overflow-hidden rounded-full"><div class="h-full bg-primary w-1/4 rounded-full"></div></div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm w-4 text-on-surface-variant">Z</span>
+<div class="h-1.5 bg-surface-container-highest flex-1 overflow-hidden rounded-full"><div class="h-full bg-error-container w-1/3 rounded-full"></div></div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm w-4 text-on-surface-variant">I</span>
+<div class="h-1.5 bg-surface-container-highest flex-1 overflow-hidden rounded-full"><div class="h-full bg-secondary w-1/5 rounded-full"></div></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TETRIS.IO - Paused</title>
+<!-- Google Fonts: Hanken Grotesk & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "tertiary-fixed": "#e7e2d9",
+                            "secondary-container": "#3c4a5e",
+                            "surface-container-low": "#1c1b1b",
+                            "secondary": "#b9c7e0",
+                            "on-secondary": "#233144",
+                            "on-background": "#e5e2e1",
+                            "error-container": "#93000a",
+                            "on-primary": "#2d3133",
+                            "on-surface-variant": "#c4c7c9",
+                            "on-tertiary": "#32302a",
+                            "secondary-fixed": "#d5e3fd",
+                            "on-primary-container": "#626567",
+                            "tertiary-fixed-dim": "#cbc6bd",
+                            "inverse-primary": "#5c5f61",
+                            "surface-tint": "#c4c7c9",
+                            "primary-fixed-dim": "#c4c7c9",
+                            "on-error": "#690005",
+                            "inverse-surface": "#e5e2e1",
+                            "on-secondary-fixed": "#0d1c2f",
+                            "surface-bright": "#3a3939",
+                            "on-surface": "#e5e2e1",
+                            "primary": "#ffffff",
+                            "inverse-on-surface": "#313030",
+                            "primary-container": "#e0e3e5",
+                            "on-error-container": "#ffdad6",
+                            "surface-container": "#201f1f",
+                            "on-primary-fixed": "#191c1e",
+                            "surface-dim": "#131313",
+                            "surface-container-highest": "#353535",
+                            "surface": "#131313",
+                            "surface-variant": "#353535",
+                            "surface-container-high": "#2a2a2a",
+                            "surface-container-lowest": "#0e0e0e",
+                            "outline-variant": "#444749",
+                            "on-secondary-fixed-variant": "#3a485c",
+                            "tertiary": "#ffffff",
+                            "secondary-fixed-dim": "#b9c7e0",
+                            "error": "#ffb4ab",
+                            "tertiary-container": "#e7e2d9",
+                            "on-tertiary-fixed": "#1d1b16",
+                            "background": "#131313",
+                            "on-tertiary-container": "#67645d",
+                            "on-secondary-container": "#abb9d2",
+                            "primary-fixed": "#e0e3e5",
+                            "outline": "#8e9193",
+                            "on-tertiary-fixed-variant": "#494640",
+                            "on-primary-fixed-variant": "#444749"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "container-padding": "24px",
+                            "grid-block": "32px",
+                            "unit": "4px",
+                            "gutter": "16px",
+                            "touch-target": "44px"
+                    },
+                    "fontFamily": {
+                            "headline-lg": ["Hanken Grotesk"],
+                            "body-md": ["Hanken Grotesk"],
+                            "display-lg": ["Hanken Grotesk"],
+                            "label-sm": ["JetBrains Mono"],
+                            "body-lg": ["Hanken Grotesk"],
+                            "label-md": ["JetBrains Mono"],
+                            "headline-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                            "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                            "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                            "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                            "label-sm": ["12px", {"lineHeight": "1.0", "fontWeight": "500"}],
+                            "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                            "label-md": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                            "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Base styles to ensure proper rendering of grid background and material icons */
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for an industrial feel */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: theme('colors.surface-container-lowest'); }
+        ::-webkit-scrollbar-thumb { background: theme('colors.outline-variant'); }
+        ::-webkit-scrollbar-thumb:hover { background: theme('colors.outline'); }
+    </style>
+</head>
+<body class="antialiased min-h-screen relative overflow-hidden flex items-center justify-center">
+<!-- 
+        Simulated Background Game State (Behind the Modal)
+        Using a placeholder image and a heavy backdrop tint as per guidelines: 
+        "Use a heavy backdrop tint (90% opacity of #0F172A) to completely isolate the user..."
+    -->
+<div class="absolute inset-0 z-0 bg-cover bg-center" data-alt="A high-contrast, cyberpunk-inspired view of a digital puzzle game board in a paused state. The scene features subtle, glowing, neon-tinged geometric shapes stacked faintly in the background. The aesthetic relies on a sophisticated palette of deep blacks, space blues, and pristine whites, characteristic of a premium, modern arcade interface. The lighting is moody and dramatic, ensuring a dark, technical atmosphere perfect for high-performance gaming." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDIcZ0nf047n-5k-Fs0zAi72t749nYKsSg2Y05lb5LILzkr1DePufd3F8TZ7X_jl-RApWNiIV_VzMvXm5KkoJb82ZEK5K1E-0wBYqFsdkae1uCOg36NWxJQP2iPoTsw3wtgGw6rGgB61pdb3dxSAJ6Of669Lw92Ilv9Y2_Pgfqi_YWtb57_CqajHch1wpSdtiXvEoKjXTH6iGEqiCVYZkWJlsbTwV0AJmh8CsVq2jSxKHUMyf1wada0bR5OjvzOb4kAfj5JnlbEvCYy');">
+</div>
+<!-- Heavy Backdrop Tint Layer -->
+<div class="absolute inset-0 z-10 bg-background/90 backdrop-blur-md"></div>
+<!-- 
+        Pause Overlay Canvas (Level 1 Panel)
+        Suppressed TopAppBar/BottomNavBar due to Task-Focused/Transactional state.
+    -->
+<main class="relative z-20 w-full max-w-[400px] px-container-padding flex flex-col items-center justify-center">
+<!-- Modal Card: Sharp edges, Tonal Layer #111827 (surface-container) with outline border -->
+<section class="w-full bg-surface-container border border-outline-variant rounded-none p-8 flex flex-col items-center shadow-2xl shadow-black/50">
+<!-- Pause Icon & Title Header -->
+<div class="flex flex-col items-center mb-8 gap-4">
+<span class="material-symbols-outlined text-[64px] text-primary" data-weight="fill">
+                    pause_circle
+                </span>
+<h1 class="font-display-lg text-display-lg text-primary uppercase tracking-tight text-center">
+                    Paused
+                </h1>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-[0.2em] text-center mt-2">
+                    Current Score: <span class="text-primary font-bold">042,100</span>
+</p>
+</div>
+<!-- Divider -->
+<div class="w-full h-px bg-outline-variant mb-8 opacity-50"></div>
+<!-- Action Buttons Container: 44px Touch Target Rule Applied -->
+<div class="w-full flex flex-col gap-4">
+<!-- Primary Action: Resume -->
+<!-- High-contrast primary color background with dark text, sharp edges -->
+<button class="group relative w-full h-[44px] flex items-center justify-center gap-2 bg-primary text-on-primary font-label-md text-label-md uppercase tracking-wider transition-all duration-200 hover:bg-primary-container active:scale-95 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background">
+<span class="material-symbols-outlined text-on-primary group-hover:scale-110 transition-transform" data-icon="play_arrow" data-weight="fill">
+                        play_arrow
+                    </span>
+<span>Resume Game</span>
+<!-- Inner machined stroke effect for primary button -->
+<div class="absolute inset-[1px] border border-on-primary/10 pointer-events-none"></div>
+</button>
+<!-- Secondary Action: Restart -->
+<!-- Surface background, border outline, text hover effects -->
+<button class="group w-full h-[44px] flex items-center justify-center gap-2 bg-surface border border-outline-variant text-on-surface font-label-md text-label-md uppercase tracking-wider transition-all duration-200 hover:bg-surface-variant hover:border-primary hover:text-primary active:scale-95 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background">
+<span class="material-symbols-outlined text-on-surface group-hover:text-primary transition-colors" data-icon="refresh">
+                        refresh
+                    </span>
+<span>Restart</span>
+</button>
+<!-- Secondary Action: Main Menu -->
+<button class="group w-full h-[44px] flex items-center justify-center gap-2 bg-surface border border-outline-variant text-on-surface font-label-md text-label-md uppercase tracking-wider transition-all duration-200 hover:bg-surface-variant hover:border-primary hover:text-primary active:scale-95 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background mt-4">
+<span class="material-symbols-outlined text-on-surface group-hover:text-primary transition-colors" data-icon="exit_to_app">
+                        exit_to_app
+                    </span>
+<span>Main Menu</span>
+</button>
+</div>
+</section>
+<!-- Optional subtle helper text outside the card -->
+<div class="mt-8 flex items-center gap-2 text-on-surface-variant/50">
+<span class="material-symbols-outlined text-[16px]" data-icon="keyboard">
+                keyboard
+            </span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">
+                Press ESC to resume
+            </span>
+</div>
+</main>
+</body></html>

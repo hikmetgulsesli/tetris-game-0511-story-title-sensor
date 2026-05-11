@@ -1,0 +1,75 @@
+# Tetris Game Story Title Sensor PRD
+
+## Overview
+Tetris Game Story Title Sensor turns the user's request into a directly usable application. The first screen is not a landing page; it is the real workflow surface where the user can inspect data, take actions, and recover from empty or error states. User-facing copy language: English. Pipeline metadata, story titles, component identifiers, and technical reports remain English.
+
+## Goals
+- Provide a working first-load playable game surface, not a landing page or generic dashboard.
+- Ensure Start, Pause, Resume, Restart, keyboard/touch controls, and game-over actions visibly change the game state.
+- Keep gameplay state single-sourced so score, board, active piece, next piece preview, pause, and game-over UI cannot drift.
+- Avoid text overflow, incoherent overlap, dead controls, and broken mobile controls on desktop and mobile.
+- Expose deterministic game state so smoke, final-test, and deploy gates can verify actual post-click and post-keyboard behavior.
+
+## Technical Decisions
+- Framework: React 18 + Vite + TypeScript.
+- Styling: Tailwind CSS or plain CSS modules with stable board sizing, clear status panels, and responsive controls.
+- State: React state plus reducer/context; avoid an extra global-state library for small apps.
+- Storage: localStorage only for high score/preferences when used, with visible recovery for corrupt data.
+- Icons: Lucide React; do not use emoji as controls.
+- Test surface: expose score, level, lines, status, paused/gameOver, activePiece, nextPiece, storageStatus, and lastError under window.app.
+
+## Functional Requirements
+- R1: Deliver a working product surface where the first screen is the actual application workflow.
+- Gameplay controls provide visible post-action state changes for click/touch and keyboard input.
+- Pause/resume freezes and restarts the game loop without spawning duplicate timers.
+- Restart resets the board, active piece, next queue, score, level, lines, and game-over state consistently.
+- Product controls must not use data-smoke-ignore; intentionally unavailable controls are disabled or aria-disabled.
+
+## Data Model
+- Game state includes board grid, active piece, next piece queue/preview, score, level, lines, status, paused, and gameOver fields.
+- The next piece preview is derived from the same queue used by piece spawning; do not keep a divergent ref or duplicate source of truth.
+- Timers and repeated input use stable callbacks/effects so interval setup does not thrash every frame.
+- Persistence is limited to high score and explicit preferences unless the task asks for saved games.
+- Corrupt persisted high-score/preferences data shows visible recovery feedback instead of silently resetting when persistence is used.
+
+## UI/UX Requirements
+- User-facing language: English.
+- Aesthetic: focused game UI with a clear playfield, readable score/status panels, and controls that do not compete with gameplay.
+- Palette: high-contrast board cells, distinct tetromino colors, Background #0F172A, Surface #111827, Text #F8FAFC, Border #334155, Success #22C55E, Error #F43F5E, Warning #F59E0B.
+- Typography: system sans; compact status labels use small but readable headings.
+- Components: stable board dimensions, visible focus rings, and 44x44px touch targets for mobile controls.
+- Do not add profile/account panels unless the user explicitly asks for account features.
+
+## Non-Functional
+- Performance: target first load under 2s and stable frame/input handling without duplicate intervals.
+- Accessibility: WCAG 2.1 AA, keyboard controls, aria-labels, focus states, and sufficient contrast.
+- Responsive: support 320px mobile widths through desktop with a stable board aspect ratio and non-overlapping controls.
+- Error handling: storage/preferences errors are visible, retryable, and clearable when persistence is used.
+
+## Project Structure
+Use src/components, src/screens, src/hooks, src/utils, src/types, src/App.tsx, and src/main.tsx. Stitch HTML screens are translated into the App workflow after setup/build; no generated design screen should remain unused.
+
+## Window State
+window.app = { state: { screen, status, score, level, lines, activePiece, nextPiece, paused, gameOver, storageStatus, lastError }, dispatch } exposes current gameplay and test state.
+
+## Screens
+| # | Screen Name | Type | Description |
+|---|-----------|-----|----------|
+| 1 | Game Board | play | Playable main scene with the board, active piece, score, level, lines, and primary controls. |
+| 2 | Next Piece Preview | status | Upcoming piece queue preview derived from the same game state that spawns pieces. |
+| 3 | Main Menu | menu | Start, resume, restart, and difficulty actions. |
+| 4 | Pause Overlay | overlay | Paused state with resume, restart, and return-to-menu actions. |
+| 5 | Game Over | result | Final score, level, lines cleared, replay, and return-to-menu actions. |
+| 6 | Controls Help | help | Keyboard and touch controls plus short rules. |
+| 7 | Game Options | settings | Audio, speed/difficulty, and control preferences when requested. |
+
+Generate a SEPARATE screen design for EVERY page, view, modal, dialog, tab panel, and settings screen described in this PRD. Do NOT skip ANY screen — even if it seems minor.
+
+MANDATORY SCREENS:
+- If the PRD mentions "settings" or "ayarlar" → generate a Settings screen
+- If the PRD mentions tabs or bottom navigation → generate EACH tab view as a separate screen
+- If the PRD mentions modals (statistics, help, share, confirmation) → generate each as a separate screen
+- If the PRD mentions error states, empty states, loading states → generate those too
+- Generate at least as many screens as there are distinct views/pages/modals in the PRD
+
+All visible application text must be in English. Keep screen metadata, generated source identifiers, and technical labels in English unless that text is visibly shown to users. Use a dark, modern theme.
