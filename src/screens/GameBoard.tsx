@@ -8,7 +8,7 @@
 // 4. Replace placeholder data with props/state
 
 import { useMemo } from 'react';
-import { ArrowLeft, ArrowRight, Circle, RotateCw, Settings } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowRight, ChevronsDown, Gamepad2, HelpCircle, Keyboard, RotateCw, Settings, Trophy, User } from "lucide-react";
 import { useAppContext } from '../contexts/AppContext';
 import { getPieceCells, getGhostY, TETROMINOES, BOARD_WIDTH, BOARD_HEIGHT, type TetrominoType } from '../types/domain';
 
@@ -53,7 +53,25 @@ function MiniPiecePreview({ type, scale = 1 }: { type: TetrominoType; scale?: nu
 }
 
 export function GameBoard({ actions }: GameBoardProps) {
-  const { state } = useAppContext();
+  const { state, actions: appActions } = useAppContext();
+
+  const handleNav = (e: React.MouseEvent, target: 'menu' | 'ranks' | 'controls' | 'options') => {
+    e.preventDefault();
+    switch (target) {
+      case 'menu':
+        appActions.goToMenu();
+        break;
+      case 'ranks':
+        appActions.goToRanks();
+        break;
+      case 'controls':
+        appActions.goToControls();
+        break;
+      case 'options':
+        appActions.goToOptions();
+        break;
+    }
+  };
 
   const { currentCells, ghostCells } = useMemo(() => {
     if (!state.currentPiece) return { currentCells: [], ghostCells: [] };
@@ -87,14 +105,14 @@ export function GameBoard({ actions }: GameBoardProps) {
   return (
     <>
       {/* TopAppBar (Hidden md to show on mobile, or adjusted for desktop) */}
-      <header className="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-touch-target bg-surface/95 backdrop-blur-sm border-b border-outline-variant dark:border-outline-variant flat no shadows md:hidden">
+      <header className="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-touch-target bg-surface/95 backdrop-blur-sm border-b border-outline-variant dark:border-outline-variant md:hidden">
         <div className="flex items-center gap-3">
-          <Circle className="text-primary dark:text-primary" aria-hidden={true} focusable="false" />
+          <HelpCircle className="text-primary dark:text-primary" aria-hidden={true} focusable="false" />
           <span className="text-headline-md font-headline-md font-bold tracking-tighter text-primary dark:text-primary uppercase">TETRIS.IO</span>
         </div>
         <div className="flex items-center gap-2 text-on-surface-variant dark:text-on-surface-variant">
           <button className="min-touch flex items-center justify-center hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 rounded-full active:scale-95 transition-transform duration-100" type="button" data-action-id="button-1-1" onClick={actions?.["button-1-1"]} aria-label="Help">
-            <Circle style={{ fontVariationSettings: "'FILL' 0" }} aria-hidden={true} focusable="false" />
+            <HelpCircle style={{ fontVariationSettings: "'FILL' 0" }} aria-hidden={true} focusable="false" />
           </button>
           <button className="min-touch flex items-center justify-center hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 rounded-full active:scale-95 transition-transform duration-100" type="button" data-action-id="button-2-2" onClick={actions?.["button-2-2"]} aria-label="Settings">
             <Settings style={{ fontVariationSettings: "'FILL' 0" }} aria-hidden={true} focusable="false" />
@@ -141,7 +159,7 @@ export function GameBoard({ actions }: GameBoardProps) {
               {/* The Grid (10x20) */}
               <div role="application" aria-label="Tetris game board" className="w-[320px] h-[640px] bg-[#0F172A] tetris-grid-bg relative overflow-hidden border border-[#334155]/50">
                 {/* Locked board cells */}
-                {boardCells.map(({ x, y, type }, i) => (
+                {boardCells.map(({ x, y, type }) => (
                   <div
                     key={`b-${x}-${y}`}
                     className={`tetromino-${type.toLowerCase()}`}
@@ -155,7 +173,7 @@ export function GameBoard({ actions }: GameBoardProps) {
                   />
                 ))}
                 {/* Ghost Piece */}
-                {ghostCells.map(({ x, y }, i) => (
+                {ghostCells.map(({ x, y }) => (
                   <div
                     key={`g-${x}-${y}`}
                     className="ghost-piece"
@@ -169,7 +187,7 @@ export function GameBoard({ actions }: GameBoardProps) {
                   />
                 ))}
                 {/* Active Piece */}
-                {currentCells.map(({ x, y }, i) => {
+                {currentCells.map(({ x, y }) => {
                   const type = state.currentPiece?.type;
                   if (!type) return null;
                   return (
@@ -194,7 +212,7 @@ export function GameBoard({ actions }: GameBoardProps) {
                 <ArrowLeft aria-hidden={true} focusable="false" />
               </button>
               <button className="bg-[#111827] border border-[#334155] text-on-surface flex items-center justify-center rounded min-touch active:bg-surface-variant" type="button" data-action-id="button-4-4" onClick={actions?.["button-4-4"]} aria-label="Down">
-                <Circle aria-hidden={true} focusable="false" />
+                <ArrowDown aria-hidden={true} focusable="false" />
               </button>
               <button className="bg-[#111827] border border-[#334155] text-on-surface flex items-center justify-center rounded min-touch active:bg-surface-variant" type="button" data-action-id="button-5-5" onClick={actions?.["button-5-5"]} aria-label="Right">
                 <ArrowRight aria-hidden={true} focusable="false" />
@@ -203,7 +221,7 @@ export function GameBoard({ actions }: GameBoardProps) {
                 <RotateCw aria-hidden={true} focusable="false" />
               </button>
               <button className="bg-primary text-on-primary border border-primary flex items-center justify-center rounded min-touch font-bold active:opacity-80" type="button" data-action-id="button-7-7" onClick={actions?.["button-7-7"]} aria-label="Hard Drop">
-                <Circle aria-hidden={true} focusable="false" />
+                <ChevronsDown aria-hidden={true} focusable="false" />
               </button>
             </div>
           </div>
@@ -241,21 +259,21 @@ export function GameBoard({ actions }: GameBoardProps) {
         </div>
       </main>
       {/* BottomNavBar (Mobile Only) */}
-      <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-[56px] bg-surface dark:bg-surface border-t border-outline-variant dark:border-outline-variant flat no shadows md:hidden">
-        <a className="flex flex-col items-center justify-center text-on-primary bg-primary rounded-none w-full h-full border-t-2 border-primary active:opacity-80 transition-opacity duration-100 group" href="#">
-          <Circle style={{ fontVariationSettings: "'FILL' 1" }} className="text-[24px] mb-1 group-hover:bg-surface-container-high transition-colors duration-200" aria-hidden={true} focusable="false" />
+      <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-[56px] bg-surface dark:bg-surface border-t border-outline-variant dark:border-outline-variant md:hidden">
+        <a className="flex flex-col items-center justify-center text-on-primary bg-primary rounded-none w-full h-full border-t-2 border-primary active:opacity-80 transition-opacity duration-100 group" href="#" onClick={(e) => handleNav(e, 'menu')}>
+          <Gamepad2 style={{ fontVariationSettings: "'FILL' 1" }} className="text-[24px] mb-1 group-hover:bg-surface-container-high transition-colors duration-200" aria-hidden={true} focusable="false" />
           <span className="text-label-sm font-label-sm">Battle</span>
         </a>
-        <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100 group" href="#">
-          <Circle style={{ fontVariationSettings: "'FILL' 0" }} className="text-[24px] mb-1" aria-hidden={true} focusable="false" />
+        <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100 group" href="#" onClick={(e) => handleNav(e, 'ranks')}>
+          <Trophy style={{ fontVariationSettings: "'FILL' 0" }} className="text-[24px] mb-1" aria-hidden={true} focusable="false" />
           <span className="text-label-sm font-label-sm">Ranks</span>
         </a>
-        <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100 group" href="#">
-          <Circle style={{ fontVariationSettings: "'FILL' 0" }} className="text-[24px] mb-1" aria-hidden={true} focusable="false" />
+        <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100 group" href="#" onClick={(e) => handleNav(e, 'controls')}>
+          <Keyboard style={{ fontVariationSettings: "'FILL' 0" }} className="text-[24px] mb-1" aria-hidden={true} focusable="false" />
           <span className="text-label-sm font-label-sm">Controls</span>
         </a>
-        <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100 group" href="#">
-          <Circle style={{ fontVariationSettings: "'FILL' 0" }} className="text-[24px] mb-1" aria-hidden={true} focusable="false" />
+        <a className="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant w-full h-full hover:bg-surface-container-high transition-colors duration-200 active:opacity-80 transition-opacity duration-100 group" href="#" onClick={(e) => handleNav(e, 'options')}>
+          <User style={{ fontVariationSettings: "'FILL' 0" }} className="text-[24px] mb-1" aria-hidden={true} focusable="false" />
           <span className="text-label-sm font-label-sm">Account</span>
         </a>
       </nav>
